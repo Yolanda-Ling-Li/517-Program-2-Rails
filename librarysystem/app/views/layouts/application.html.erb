@@ -10,6 +10,12 @@
   </head>
 
   <body>
-    <%= yield %>
+  <h1>Online Library System</h1>
+
+  <%= yield %>
+  <br><br>
+
+  <%= link_to "List all libraries", libraries_url %> <%= link_to "List all books", books_url %>
+
   </body>
 </html>
