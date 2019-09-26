@@ -5,7 +5,7 @@ class Book < ApplicationRecord
   validates :language, :presence => true
   validates :published, :presence => true
   validates :edition, :presence => true
-  validates :front_cover, :presence => true
+  mount_uploader :front_cover, FrontCoverUploader
   validates :subject, :presence => true
   validates :summary, :presence => true
   validates :special, :presence => true

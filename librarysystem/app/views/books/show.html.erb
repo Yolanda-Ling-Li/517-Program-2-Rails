@@ -32,7 +32,7 @@
 
 <p>
   <strong>Front cover:</strong>
-  <%= @book.front_cover %>
+  <%= image_tag(@book.front_cover.url, size:"216x279") if @book.front_cover?%>
 </p>
 
 <p>
