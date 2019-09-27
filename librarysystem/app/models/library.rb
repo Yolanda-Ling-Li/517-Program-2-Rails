@@ -4,5 +4,5 @@ class Library < ApplicationRecord
   validates :location, :presence => true
   validates :maxborrowdays, :presence => true, numericality:{greater_than: 0}
   validates :overduefine, :presence => true, numericality:{greater_than: 0}
-  has_many:books
+  has_many :books, dependent: :destroy
 end

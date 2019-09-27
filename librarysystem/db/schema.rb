@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 2019_09_26_181126) do
     t.string "subject"
     t.text "summary"
     t.string "special"
+    t.integer "library_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["library_id"], name: "index_books_on_library_id"
   end
 
   create_table "libraries", force: :cascade do |t|

@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  belongs_to :library
   validates :isbn, :presence => true, uniqueness: true
   validates :title, :presence => true
   validates :authors, :presence => true
@@ -9,4 +10,5 @@ class Book < ApplicationRecord
   validates :subject, :presence => true
   validates :summary, :presence => true
   validates :special, :presence => true
+  validates :library_id, :presence => true
 end

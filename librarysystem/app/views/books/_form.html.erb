@@ -59,6 +59,9 @@
   <%= form.label :special %>
   <%= select("book", "special", [['If special?', ''], ["Yes", "Yes"], ["No", "No"]], {required: true, selected: '', disabled: ''}) %>
 
+  <%= form.label :library_id %>
+  <%= select("book", "library_id", Library.all.collect{ |c| [ c.name, c.id] }) %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

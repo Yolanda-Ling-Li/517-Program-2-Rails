@@ -50,5 +50,10 @@
   <%= @book.special %>
 </p>
 
+<p>
+  <b>Library:</b>
+  <%= Library.find(@book.library_id).name %>
+</p>
+
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
