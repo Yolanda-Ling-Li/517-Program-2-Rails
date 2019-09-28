@@ -39,6 +39,9 @@
 
 <br>
 
+<%= link_to 'New Library', new_library_path %>
+
+
 <% if can? :create, @library %>
 <%= link_to 'New Library', new_library_path %>
 <% end %>
