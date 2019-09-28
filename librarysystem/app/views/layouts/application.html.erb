@@ -9,6 +9,8 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <h1>Online Library System</h1>
+
   <body>
     <%= link_to 'Front Page', root_path %> |
     <% if current_user %>
@@ -21,5 +23,11 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
+
+
+    <br><br>
+
+    <%= link_to "List all libraries", libraries_url %> <%= link_to "List all books", books_url %>
+
   </body>
 </html>

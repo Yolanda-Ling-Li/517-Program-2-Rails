@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_001518) do
+ActiveRecord::Schema.define(version: 2019_09_27_230638) do
+
+  create_table "books", force: :cascade do |t|
+    t.string "isbn"
+    t.string "title"
+    t.string "authors"
+    t.string "language"
+    t.string "published"
+    t.string "edition"
+    t.string "front_cover"
+    t.string "subject"
+    t.text "summary"
+    t.string "special"
+    t.integer "library_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "borrow_date"
+    t.index ["library_id"], name: "index_books_on_library_id"
+  end
+
+  create_table "borrow_items", force: :cascade do |t|
+  end
+
+  create_table "borrows", force: :cascade do |t|
+  end
 
   create_table "libraries", force: :cascade do |t|
     t.string "name"

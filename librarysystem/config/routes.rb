@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
+
+  resources :books
   resources :libraries
   root to: "home#index"
   # root to: "libraries#index"
