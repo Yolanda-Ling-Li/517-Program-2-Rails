@@ -9,7 +9,8 @@ class BooksController < ApplicationController
       borrow_sate = false
     end
     @book.borrow_date = Date.today
-    if borrow_sate and @book.save
+    if borrow_sate and @book.save!
+      create_book_history session[:user_id], params[:id],Date.today
       render :borrow, status: :ok, location: @book
     else
       redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
@@ -28,6 +29,14 @@ class BooksController < ApplicationController
     else
       redirect_to books_url, notice: 'Fail! Book has been returned.'
     end
+  end
+
+  def create_book_history(user_id, book_id, borrow_date)
+    @book_history = BookHistory.new
+    @book_history.user_id = user_id
+    @book_history.book_id = book_id
+    @book_history.borrow_date = borrow_date
+    @book_history.save!
   end
 
   # GET /books

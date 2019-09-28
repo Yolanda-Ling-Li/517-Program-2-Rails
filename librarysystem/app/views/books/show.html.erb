@@ -57,7 +57,11 @@
 
 <p>
   <strong>Borrow Date:</strong>
-  <%= @book.borrow_date %>
+  <% if @book.borrow_date %>
+    <%= @book.borrow_date %>
+  <% else %>
+    <%= 'Un-borrowed' %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
