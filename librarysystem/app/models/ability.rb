@@ -4,15 +4,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new
-    can [:read, :home, :history, :show_cameras], :all
-    if user.role == 'root'
-      can :manage, :all
-    elsif user.role == 'admin'
-      can :manage, [Site, Camera, Sensor, Article]
-      can [:edit, :update], User
-    end
-    # Define abilities for the passed in user here. For example:
+    # user ||= User.new
+    # can [:read, :home, :history, :show_cameras], :all
+    # if user.role == 'root'
+    #   can :manage, :all
+    # elsif user.role == 'admin'
+    #   can :manage, [Site, Camera, Sensor, Article]
+    #   can [:edit, :update], User
+    # end
+    #  Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
     #   if user.admin?
