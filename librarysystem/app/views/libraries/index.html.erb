@@ -4,36 +4,29 @@
 
 <table>
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>University</th>
-      <th>Location</th>
-      <th>Maxborrowdays</th>
-      <th>Overduefine</th>
-      <th colspan="3"></th>
-      <% if can? :manage, @library %>
-      <th colspan="3"></th>
-      <% end %>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>University</th>
+    <th>Location</th>
+    <th>Maxborrowdays</th>
+    <th>Overduefine</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @libraries.each do |library| %>
-      <tr>
-        <td><%= library.name %></td>
-        <td><%= library.university %></td>
-        <td><%= library.location %></td>
-        <td><%= library.maxborrowdays %></td>
-        <td><%= library.overduefine %></td>
-        <% if can? :manage, @library %>
-        <td><%= link_to 'Show', library %></td>
-        <td><%= link_to 'Edit', edit_library_path(library) %></td>
-        <% if can? :destroy, @library %>
-        <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-        <% end %>
-      </tr>
-    <% end %>
+  <% @libraries.each do |library| %>
+    <tr>
+      <td><%= library.name %></td>
+      <td><%= library.university %></td>
+      <td><%= library.location %></td>
+      <td><%= library.maxborrowdays %></td>
+      <td><%= library.overduefine %></td>
+      <td><%= link_to 'Show', library %></td>
+      <td><%= link_to 'Edit', edit_library_path(library) %></td>
+      <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
@@ -41,7 +34,5 @@
 
 <%= link_to 'New Library', new_library_path %>
 
-
-<% if can? :create, @library %>
 <%= link_to 'New Library', new_library_path %>
-<% end %>
+
