@@ -4,8 +4,30 @@ class BooksController < ApplicationController
   def borrow
     require 'date'
     @book=Book.find(params[:id])
+    borrow_sate = true
+    if @book.borrow_date
+      borrow_sate = false
+    end
     @book.borrow_date = Date.today
-    @book.save
+    if borrow_sate and @book.save
+      render :borrow, status: :ok, location: @book
+    else
+      redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
+    end
+  end
+
+  def return
+    @book=Book.find(params[:id])
+    return_sate = true
+    if !(@book.borrow_date)
+      return_sate = false
+    end
+    @book.borrow_date=nil
+    if return_sate && @book.save!
+      render :return, status: :ok, location: @book
+    else
+      redirect_to books_url, notice: 'Fail! Book has been returned.'
+    end
   end
 
   # GET /books

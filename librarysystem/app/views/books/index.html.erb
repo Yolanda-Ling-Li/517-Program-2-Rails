@@ -45,6 +45,7 @@
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Borrow', borrow_book_path(book) %></td>
+        <td><%= link_to 'Return', return_book_path(book) %></td>
       </tr>
     <% end %>
   </tbody>
