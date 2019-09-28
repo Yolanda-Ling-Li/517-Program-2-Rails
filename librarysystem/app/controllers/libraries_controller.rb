@@ -1,8 +1,11 @@
 class LibrariesController < ApplicationController
+  load_and_authorize_resource
+  before_action :authenticate_user!
+  # before_action :authenticate_admin, only: [:edit, :update, :destroy]
   before_action :set_library, only: [:show, :edit, :update, :destroy]
-
   # GET /libraries
   # GET /libraries.json
+
   def index
     @libraries = Library.all
   end
@@ -10,6 +13,12 @@ class LibrariesController < ApplicationController
   # GET /libraries/1
   # GET /libraries/1.json
   def show
+    # @library = Library.find(params[:id])
+
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.json { render json: @library }
+    # end
   end
 
   # GET /libraries/new
