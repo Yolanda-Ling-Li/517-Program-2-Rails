@@ -1,6 +1,13 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
+  def borrow
+    require 'date'
+    @book=Book.find(params[:id])
+    @book.borrow_date = Date.today
+    @book.save
+  end
+
   # GET /books
   # GET /books.json
   def index
@@ -69,6 +76,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:isbn, :title, :authors, :language, :published, :edition, :front_cover, :subject, :summary, :special, :library_id)
+      params.require(:book).permit(:isbn, :title, :authors, :language, :published, :edition, :front_cover, :subject, :summary, :special, :library_id, :borrow_date)
     end
 end

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
+
   resources :books
   resources :libraries
   root 'libraries#index'

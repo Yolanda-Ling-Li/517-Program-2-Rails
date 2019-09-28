@@ -1,4 +1,5 @@
 class CreateBooks < ActiveRecord::Migration[6.0]
+  require 'date'
   def change
     create_table :books do |t|
       t.string :isbn
@@ -12,6 +13,7 @@ class CreateBooks < ActiveRecord::Migration[6.0]
       t.text :summary
       t.string :special
       t.references :library
+      t.date :borrow_date, default: Date.new(2100,1,1)
 
       t.timestamps
     end

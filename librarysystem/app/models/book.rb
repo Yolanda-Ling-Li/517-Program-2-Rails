@@ -10,5 +10,6 @@ class Book < ApplicationRecord
   validates :subject, :presence => true
   validates :summary, :presence => true
   validates :special, :presence => true
+  #validates :borrow_date, :presence => true
   validates :library_id, :presence => true
 end
