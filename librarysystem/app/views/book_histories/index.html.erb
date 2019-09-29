@@ -14,7 +14,7 @@
   <tbody>
     <% @book_histories.each do |book_history| %>
       <tr>
-        <td><%= book_history.user_id %></td>
+        <td><%= Student.find(book_history.student_id).email %></td>
         <td><%= book_history.borrow_date %></td>
       </tr>
     <% end %>
@@ -23,4 +23,3 @@
 
 <br>
 
-<%= link_to 'New Book History', new_book_history_path %>

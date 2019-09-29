@@ -1,5 +1,7 @@
 class Book < ApplicationRecord
   belongs_to :library
+  has_many :book_histories, dependent: :destroy
+
   validates :isbn, :presence => true, uniqueness: true
   validates :title, :presence => true
   validates :authors, :presence => true
