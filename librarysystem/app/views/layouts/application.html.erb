@@ -13,13 +13,30 @@
 
   <body>
     <%= link_to 'Front Page', root_path %> |
-    <% if current_user %>
-    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> |
-    <%= link_to('Edit Account', edit_registration_path(:user)) %>
+    <% if current_admin %>
+    <%= link_to('Admin Logout', destroy_admin_session_path, :method => :delete) %> |
+    <%= link_to('Admin Edit Account', edit_registration_path(:admin)) %>
     <% else %>
-      <%= link_to('Register', new_registration_path(:user)) %> |
-      <%= link_to('Login', new_session_path(:user)) %>
+      <%= link_to('Admin Register', new_registration_path(:admin)) %> |
+      <%= link_to('Admin Login', new_session_path(:admin)) %>
     <% end %>
+
+    <% if current_student %>
+    <%= link_to('Student Logout', destroy_student_session_path, :method => :delete) %> |
+    <%= link_to('Student Edit Account', edit_registration_path(:student)) %>
+    <% else %>
+      <%= link_to('Student Register', new_registration_path(:student)) %> |
+      <%= link_to('Student Login', new_session_path(:student)) %>
+    <% end %>
+
+    <% if current_librarian %>
+    <%= link_to('Librarian Logout', destroy_user_session_path, :method => :delete) %> |
+    <%= link_to('Librarian Edit Account', edit_registration_path(:librarian)) %>
+    <% else %>
+      <%= link_to('Librarian Register', new_registration_path(:librarian)) %> |
+      <%= link_to('Librarian Login', new_session_path(:librarian)) %>
+    <% end %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

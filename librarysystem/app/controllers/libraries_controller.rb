@@ -1,6 +1,9 @@
 class LibrariesController < ApplicationController
   # load_and_authorize_resource
-  before_action :authenticate_user!
+  # before_action :authenticate_admin!
+  before_action :authenticate_all! 
+  before_action :authenticate_manager!, only: [:edit, :update]
+  before_action :authenticate_admin!, only: [ :destroy]
   # before_action :authenticate_admin, only: [:edit, :update, :destroy]
   before_action :set_library, only: [:show, :edit, :update, :destroy]
   # GET /libraries
