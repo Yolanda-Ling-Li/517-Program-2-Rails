@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :book_histories
+  resources :check_outs
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
   get 'books/:id/return' => 'books#return', :as => :return_book
-  get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_user_history
+  get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_book_history
+  get 'check_outs/:data/index' => 'check_outs#index', :as =>:check_check_out
 
   resources :books
   resources :libraries

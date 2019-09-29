@@ -11,6 +11,7 @@ class BooksController < ApplicationController
     @book.borrow_date = Date.today
     if borrow_sate and @book.save!
       create_book_history current_student.id, params[:id],Date.today
+      create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       render :borrow, status: :ok, location: @book
     else
       redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
@@ -23,11 +24,18 @@ class BooksController < ApplicationController
     if !(@book.borrow_date)
       return_sate = false
     end
+    this_student = true
+    if current_student.id != CheckOut.find_by_book_id(params[:id]).student_id
+      this_student = false
+    end
+
     @book.borrow_date=nil
-    if return_sate && @book.save!
+    if return_sate && this_student && @book.save!
       render :return, status: :ok, location: @book
-    else
+    elsif !(return_sate)
       redirect_to books_url, notice: 'Fail! Book has been returned.'
+    elsif !(this_student)
+      redirect_to books_url, notice: 'Fail! Book is borrowed by others.'
     end
   end
 
@@ -37,6 +45,14 @@ class BooksController < ApplicationController
     @book_history.book_id = book_id
     @book_history.borrow_date = borrow_date
     @book_history.save!
+  end
+
+  def create_check_out(library_id, student_id, book_id)
+    @check_out = CheckOut.new
+    @check_out.library_id = library_id
+    @check_out.student_id = student_id
+    @check_out.book_id = book_id
+    @check_out.save!
   end
 
   # GET /books

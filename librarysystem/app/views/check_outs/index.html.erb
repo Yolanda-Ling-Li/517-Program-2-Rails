@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Check Outs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Borrow Book ISBN</th>
+      <th>Borrow Book Title</th>
+      <th>Student</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @check_outs.each do |check_out| %>
+      <tr>
+        <td><%= Book.find(check_out.book_id).isbn %></td>
+        <td><%= Book.find(check_out.book_id).title %></td>
+        <td><%= Student.find(check_out.student_id).email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check Out', new_check_out_path %>
