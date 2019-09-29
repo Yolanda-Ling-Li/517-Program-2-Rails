@@ -24,7 +24,6 @@
   <strong>Overduefine:</strong>
   <%= @library.overduefine %>
 </p>
-<% if can? :update, @library %>
-  <%= link_to 'Edit', edit_library_path(@library) %>|
-<% end %>
+<%= link_to 'Edit', edit_library_path(@library) %>|
+
 <%= link_to 'Back', libraries_path %>

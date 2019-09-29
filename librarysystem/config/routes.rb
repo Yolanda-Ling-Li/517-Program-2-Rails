@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions" }
+  devise_for :students, path: 'students', controllers: { sessions: "students/sessions" }
+  devise_for :librarians, path: 'librarians', controllers: { sessions: "librarians/sessions" }
   devise_for :users
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
-
   resources :books
   resources :libraries
   root to: "home#index"

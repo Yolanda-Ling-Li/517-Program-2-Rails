@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class DeviseCreateUsers < ActiveRecord::Migration[6.0]
+class DeviseCreateLibrarians < ActiveRecord::Migration[6.0]
   def change
-    create_table :users do |t|
+    create_table :librarians do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      # t.string :name,               null: false, default: ""
 
       ## Recoverable
       t.string   :reset_password_token
@@ -14,11 +13,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
 
       ## Rememberable
       t.datetime :remember_created_at
-
-      # ## Library specific
-      # t.string :library_name
-      # t.string :university_name
-      # t.integer :max_num_books
 
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false
@@ -42,9 +36,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,         unique: true
+    add_index :librarians, :email,                unique: true
+    add_index :librarians, :reset_password_token, unique: true
+    # add_index :librarians, :confirmation_token,   unique: true
+    # add_index :librarians, :unlock_token,         unique: true
   end
 end
