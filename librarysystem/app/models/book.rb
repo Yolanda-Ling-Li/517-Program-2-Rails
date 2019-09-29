@@ -7,6 +7,7 @@ class Book < ApplicationRecord
   validates :published, :presence => true
   validates :edition, :presence => true
   mount_uploader :front_cover, FrontCoverUploader
+  validates_presence_of :front_cover
   validates :subject, :presence => true
   validates :summary, :presence => true
   validates :special, :presence => true

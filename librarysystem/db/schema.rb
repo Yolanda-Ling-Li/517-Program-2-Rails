@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 2019_09_28_232007) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "book_histories", force: :cascade do |t|
+    t.date "borrow_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "isbn"
     t.string "title"
@@ -36,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_28_232007) do
     t.text "summary"
     t.string "special"
     t.integer "library_id"
-    t.date "borrow_date", default: "2100-01-01"
+    t.date "borrow_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["library_id"], name: "index_books_on_library_id"
@@ -95,7 +102,6 @@ ActiveRecord::Schema.define(version: 2019_09_28_232007) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

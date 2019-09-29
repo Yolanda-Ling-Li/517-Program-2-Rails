@@ -35,12 +35,18 @@
         <td><%= book.summary %></td>
         <td><%= book.special %></td>
         <td><%= book.library.name %></td>
-        <td><%= book.borrow_date %></td>
+        <% if book.borrow_date %>
+          <td><%= book.borrow_date %></td>
+        <% else %>
+          <td><%= 'Un-borrowed' %></td>
+        <% end %>
 
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Borrow', borrow_book_path(book) %></td>
+        <td><%= link_to 'Return', return_book_path(book) %></td>
+
       </tr>
     <% end %>
   </tbody>

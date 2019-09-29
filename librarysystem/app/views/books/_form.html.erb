@@ -46,10 +46,14 @@
     <%= form.file_field :front_cover %>
   </div>
 
-  <div class="field">
-    <%= form.label :subject %>
-    <%= form.text_field :subject, accept:'image/jpeg, image/png' %>
-  </div>
+  <% if @book.front_cover?%>
+      <%= image_tag(@book.front_cover.url, size:"216x279") %>
+  <% else %>
+    <div class="field">
+      <%= form.label :subject %>
+      <%= form.text_field :subject, accept:'image/jpg, image/png' %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :summary %>
@@ -57,7 +61,7 @@
   </div>
 
   <%= form.label :special %>
-  <%= select("book", "special", [['If special?', ''], ["Yes", "Yes"], ["No", "No"]], {required: true, selected: '', disabled: ''}) %>
+  <%= select("book", "special", [['If special?', ''], ["Yes", "Yes"], ["No", "No"]])%>
 
   <%= form.label :library_id %>
   <%= select("book", "library_id", Library.all.collect{ |c| [ c.name, c.id] }) %>
