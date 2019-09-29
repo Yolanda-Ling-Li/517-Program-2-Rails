@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Student</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>University</th>
+      <th>Maxborrowdays</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @studentusers.each do |studentuser| %>
+      <tr>
+        <td><%= studentuser.name %></td>
+        <td><%= studentuser.email %></td>
+        <td><%= studentuser.university %></td>
+        <td><%= studentuser.maxborrowdays %></td>
+        <td><%= link_to 'Show', studentuser %></td>
+        <td><%= link_to 'Edit', edit_studentuser_path(studentuser) %></td>
+        <td><%= link_to 'Destroy', studentuser, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Student', new_studentuser_path %>

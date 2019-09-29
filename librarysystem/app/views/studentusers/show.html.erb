@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @studentuser.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @studentuser.email %>
+</p>
+
+<p>
+  <strong>University:</strong>
+  <%= @studentuser.university %>
+</p>
+
+<p>
+  <strong>Maxborrowdays:</strong>
+  <%= @studentuser.maxborrowdays %>
+</p>
+
+<%= link_to 'Edit', edit_studentuser_path(@studentuser) %> |
+<%= link_to 'Back', studentusers_path %>
