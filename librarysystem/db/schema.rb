@@ -26,9 +26,12 @@ ActiveRecord::Schema.define(version: 2019_09_28_232007) do
 
   create_table "book_histories", force: :cascade do |t|
     t.date "borrow_date"
+    t.integer "user_id"
+    t.integer "book_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-
+    t.index ["book_id"], name: "index_book_histories_on_book_id"
+    t.index ["user_id"], name: "index_book_histories_on_user_id"
   end
 
   create_table "books", force: :cascade do |t|
