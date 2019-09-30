@@ -8,11 +8,18 @@ class BooksController < ApplicationController
     if @book.borrow_date
       borrow_sate = false
     end
+    this_student = false
+    if CheckOut.find_by(:student_id => current_student.id, :book_id => @book.id)
+      this_student = true
+    end
     @book.borrow_date = Date.today
     if borrow_sate and @book.save!
       create_book_history current_student.id, params[:id],Date.today
       create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
+      create_bookmark current_student.id, params[:id]
       render :borrow, status: :ok, location: @book
+    elsif this_student
+      redirect_to books_url, notice: 'Fail! You have borrowed this book.'
     else
       redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
     end
@@ -24,13 +31,16 @@ class BooksController < ApplicationController
     if !(@book.borrow_date)
       return_sate = false
     end
-    this_student = true
-    if current_student.id != CheckOut.find_by_book_id(params[:id]).student_id
-      this_student = false
+    this_student = false
+    if CheckOut.find_by(:student_id => current_student.id, :book_id => @book.id)
+      this_student = true
     end
 
     @book.borrow_date=nil
     if return_sate && this_student && @book.save!
+      destroy_book_history current_student.id, params[:id],Date.today
+      destroy_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
+      destory_bookmark current_student.id, params[:id]
       render :return, status: :ok, location: @book
     elsif !(return_sate)
       redirect_to books_url, notice: 'Fail! Book has been returned.'
@@ -47,12 +57,37 @@ class BooksController < ApplicationController
     @book_history.save!
   end
 
+  def destroy_book_history(student_id, book_id, borrow_date)
+    @book_history = BookHistory.find_by(:student_id => student_id, :book_id => book_id, :borrow_date => borrow_date)
+    @book_history.destroy
+  end
+
   def create_check_out(library_id, student_id, book_id)
     @check_out = CheckOut.new
     @check_out.library_id = library_id
     @check_out.student_id = student_id
     @check_out.book_id = book_id
     @check_out.save!
+  end
+
+  def destroy_check_out(library_id, student_id, book_id)
+    @check_out = CheckOut.find_by(:library_id => library_id, :student_id => student_id, :book_id => book_id)
+    @check_out.destroy
+  end
+
+  def bookmark
+    if Bookmark.find_by(:student_id => current_student.id, :book_id => params[:id])
+      @bookmark = Bookmark.find_by(:student_id => current_student.id, :book_id => params[:id])
+      @bookmark.destroy
+      redirect_to books_url, notice: 'Succeed! Book has been unbookmarked by you.'
+    else
+      @bookmark = Bookmark.new
+      @bookmark.student_id = current_student.id
+      @bookmark.book_id = params[:id]
+      if @bookmark.save!
+        render :bookmark, status: :ok, location: @book
+      end
+    end
   end
 
   # GET /books

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions" }
   devise_for :students, path: 'students', controllers: { sessions: "students/sessions" }
   devise_for :librarians, path: 'librarians', controllers: { sessions: "librarians/sessions" }
@@ -7,10 +7,12 @@ Rails.application.routes.draw do
 
   resources :book_histories
   resources :check_outs
+  resources :bookmarks
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
   get 'books/:id/return' => 'books#return', :as => :return_book
   get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_book_history
   get 'check_outs/:data/index' => 'check_outs#index', :as =>:check_check_out
+  get 'books/:id/bookmark' => 'books#bookmark', :as => :bookmark_book
 
   resources :books
   resources :libraries
