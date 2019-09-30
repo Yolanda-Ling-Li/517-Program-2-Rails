@@ -4,48 +4,71 @@
     <title>Librarysystem</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <h4 style="font-size:30px">Online Library System</h4>
+  <h4 style="font-size:40px">Online Library System</h4>
 
-  <body style="font-size:20px; background-color: #3a70cc4d">
-    <%= link_to 'Home Page', root_path %> |
+  <body style="font-size:15px;background-color:#9c9c9c">
+  <button type="button" class="btn btn-dark">
+    <%= link_to 'Home Page', root_path %>
+    </button>
     <% if current_admin %>
-    <%= link_to('Admin Logout', destroy_admin_session_path, :method => :delete) %> |
-    <%= link_to('Edit Profile', edit_registration_path(:admin)) %>
+    <button type="button" class="btn btn-danger">
+    <%= link_to('Admin Logout', destroy_admin_session_path, :method => :delete) %></button>
+    <button type="button" class="btn btn-info">
+    <%= link_to('Edit Profile', edit_registration_path(:admin)) %></button>
     <% elsif current_unadmin %>
     <% else %>
-      <%= link_to('Admin Register', new_registration_path(:admin)) %>
-      <%= link_to('Admin Login', new_session_path(:admin)) %>|
+    <button type="button" class="btn btn-primary">
+        <%= link_to('Admin Register', new_registration_path(:admin)) %>
+    </button>
+    <button type="button" class="btn btn-success">
+          <%= link_to('Admin Login', new_session_path(:admin)) %>
+      </button>
     <% end %>
 
     <% if current_student %>
-    <%= link_to('Student Logout', destroy_student_session_path, :method => :delete) %> |
-    <%= link_to('Edit Profile', edit_registration_path(:student)) %> |
+    <button type="button" class="btn btn-danger">
+    <%= link_to('Student Logout', destroy_student_session_path, :method => :delete) %></button>
+    <button type="button" class="btn btn-info">
+    <%= link_to('Edit Profile', edit_registration_path(:student)) %></button>
     <%= link_to 'Bookmarked List', bookmarks_url %>
     <% elsif current_manager %>
     <% else %>
+    <button type="button" class="btn btn-primary">
       <%= link_to('Student Register', new_registration_path(:student)) %>
-      <%= link_to('Student Login', new_session_path(:student)) %>|
+      </button>
+      <button type="button" class="btn btn-success">
+      <%= link_to('Student Login', new_session_path(:student)) %>
+      </button>
     <% end %>
 
     <% if current_librarian %>
-    <%= link_to('Librarian Logout', destroy_user_session_path, :method => :delete) %> |
-    <%= link_to('Edit Profile', edit_registration_path(:librarian)) %>|
+    <button type="button" class="btn btn-danger">
+    <%= link_to('Librarian Logout', destroy_user_session_path, :method => :delete) %></button>
+    <button type="button" class="btn btn-info">
+    <%= link_to('Edit Profile', edit_registration_path(:librarian)) %></button>
     <% elsif current_unlibrarian%>
     <% else %>
-      <%= link_to('Librarian Register', new_registration_path(:librarian)) %>|
+    <button type="button" class="btn btn-primary">
+      <%= link_to('Librarian Register', new_registration_path(:librarian)) %>
+    </button>
+    <button type="button" class="btn btn-success">
       <%= link_to('Librarian Login', new_session_path(:librarian)) %>
+      </button>
     <% end %>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <%= yield %>
+<br>
+<br>
 
 <% if current_all %>
-<h4>Search</h4>
+<h4>Search Now !</h4>
 <%= form_tag(books_path,method: :get) do %>
   <%= text_field_tag :term ,params[:term]%>
   <%= submit_tag 'Search' %>
@@ -55,16 +78,31 @@
     <br><br>
 
     <% if current_admin %>
-
-    <%= link_to "Create Library", new_library_path %><br><br>
-    <%= link_to "View all libraries", libraries_url %><br><br>
-    <%= link_to "View all books", books_url %><br><br>
+    <button type="button" class="btn btn-success">
+    <%= link_to "Create Library", new_library_path %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+    <%= link_to "View all libraries", libraries_url %></button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+    <%= link_to "View all books", books_url %>
+    </button>
+    <br><br>
 
     <% else %>
-    <%= link_to "List all libraries", libraries_url %><br><br>
-    <%= link_to "List all books", books_url %><br><br>
+    <button type="button" class="btn btn-secondary">
+    <%= link_to "List all libraries", libraries_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+    <%= link_to "List all books", books_url %>
+    </button>
+    <br><br>
     <% end %>
 
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
