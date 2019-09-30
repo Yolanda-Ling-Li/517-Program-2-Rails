@@ -63,6 +63,7 @@
     <%= 'Un-borrowed' %>
   <% end %>
 </p>
-
+<% if current_manager %>
 <%= link_to 'Edit', edit_book_path(@book) %> |
+<% end %>
 <%= link_to 'Back', books_path %>

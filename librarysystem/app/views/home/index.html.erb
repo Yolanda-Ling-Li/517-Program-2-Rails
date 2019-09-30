@@ -1,2 +1,9 @@
-<h1>Welcome Here!</h1>
-<%= link_to "Libraries", libraries_path %>
+<% if current_admin %>
+<h1>Hi Admin! Welcome to Library!</h1>
+<% elsif current_librarian %>
+<h1>Hi Librarian! Welcome to Library!</h1>
+<% elsif current_student %>
+<h1 style="font-size:40px">Hi Student ! Welcome to Library!</h1>
+<% else%>
+<h1> Welcome to Library!</h1>
+<% end %>

@@ -16,7 +16,6 @@ class BooksController < ApplicationController
     if borrow_sate and @book.save!
       create_book_history current_student.id, params[:id],Date.today
       create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
-      create_bookmark current_student.id, params[:id]
       render :borrow, status: :ok, location: @book
     elsif this_student
       redirect_to books_url, notice: 'Fail! You have borrowed this book.'
@@ -40,7 +39,6 @@ class BooksController < ApplicationController
     if return_sate && this_student && @book.save!
       destroy_book_history current_student.id, params[:id],Date.today
       destroy_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
-      destory_bookmark current_student.id, params[:id]
       render :return, status: :ok, location: @book
     elsif !(return_sate)
       redirect_to books_url, notice: 'Fail! Book has been returned.'
@@ -93,7 +91,11 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = if params[:term]
+      Book.where(['title LIKE ? OR authors LIKE ? OR published LIKE ? OR subject LIKE ?',"%#{params[:term]}%","%#{params[:term]}%","%#{params[:term]}%","%#{params[:term]}%"])
+    else
+    Book.all
+    end
   end
 
   # GET /books/1
@@ -158,6 +160,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:isbn, :title, :authors, :language, :published, :edition, :front_cover, :subject, :summary, :special, :library_id, :borrow_date)
+      params.require(:book).permit(:isbn, :title, :authors, :language, :published, :edition, :front_cover, :subject, :summary, :special, :library_id, :borrow_date,:term)
     end
 end

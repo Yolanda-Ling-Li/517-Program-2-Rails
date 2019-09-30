@@ -9,42 +9,62 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <h1>Online Library System</h1>
+  <h4 style="font-size:30px">Online Library System</h4>
 
-  <body>
-    <%= link_to 'Front Page', root_path %> |
+  <body style="font-size:20px; background-color: #3a70cc4d">
+    <%= link_to 'Home Page', root_path %> |
     <% if current_admin %>
     <%= link_to('Admin Logout', destroy_admin_session_path, :method => :delete) %> |
-    <%= link_to('Admin Edit Account', edit_registration_path(:admin)) %>
+    <%= link_to('Edit Profile', edit_registration_path(:admin)) %>
+    <% elsif current_unadmin %>
     <% else %>
-      <%= link_to('Admin Register', new_registration_path(:admin)) %> |
-      <%= link_to('Admin Login', new_session_path(:admin)) %>
+      <%= link_to('Admin Register', new_registration_path(:admin)) %>
+      <%= link_to('Admin Login', new_session_path(:admin)) %>|
     <% end %>
 
     <% if current_student %>
     <%= link_to('Student Logout', destroy_student_session_path, :method => :delete) %> |
-    <%= link_to('Student Edit Account', edit_registration_path(:student)) %>
+    <%= link_to('Edit Profile', edit_registration_path(:student)) %> |
+    <%= link_to 'Bookmarked Book List', bookmarks_url %>
+    <% elsif current_manager %>
     <% else %>
-      <%= link_to('Student Register', new_registration_path(:student)) %> |
-      <%= link_to('Student Login', new_session_path(:student)) %>
+      <%= link_to('Student Register', new_registration_path(:student)) %>
+      <%= link_to('Student Login', new_session_path(:student)) %>|
     <% end %>
 
     <% if current_librarian %>
     <%= link_to('Librarian Logout', destroy_user_session_path, :method => :delete) %> |
-    <%= link_to('Librarian Edit Account', edit_registration_path(:librarian)) %>
+    <%= link_to('Edit Profile', edit_registration_path(:librarian)) %>|
+    <% elsif current_unlibrarian%>
     <% else %>
-      <%= link_to('Librarian Register', new_registration_path(:librarian)) %> |
+      <%= link_to('Librarian Register', new_registration_path(:librarian)) %>|
       <%= link_to('Librarian Login', new_session_path(:librarian)) %>
     <% end %>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<%= yield %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-
+<% if current_all %>
+<h4>Search</h4>
+<%= form_tag(books_path,method: :get) do %>
+  <%= text_field_tag :term ,params[:term]%>
+  <%= submit_tag 'Search' %>
+<% end %>
+<% end %>
 
     <br><br>
 
-    <%= link_to "List all libraries", libraries_url %> <%= link_to "List all books", books_url %>
+    <% if current_admin %>
+
+    <%= link_to "Create Library", new_library_path %><br><br>
+    <%= link_to "View all libraries", libraries_url %><br><br>
+    <%= link_to "View all books", books_url %><br><br>
+
+    <% else %>
+    <%= link_to "List all libraries", libraries_url %><br><br>
+    <%= link_to "List all books", books_url %><br><br>
+    <% end %>
+
 
   </body>
 </html>

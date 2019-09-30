@@ -3,8 +3,10 @@ class ApplicationController < ActionController::Base
 	# def current_ability
 	#   @current_ability ||= Ability.new(current_user)
 	# end
-	devise_group :manager, contains: [:librarian, :admin]
 	devise_group :all, contains: [:librarian, :admin, :student]
+	devise_group :manager, contains: [:librarian, :admin]
+	devise_group :unadmin,contains: [:librarian,:student]
+	devise_group :unlibrarian,contains: [:admin,:student]
 
 	protected
 

@@ -40,18 +40,24 @@
         <% else %>
           <td><%= 'Un-borrowed' %></td>
         <% end %>
+        <% if current_manager %>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'History', book_histories_url(book) %></td>
+        <% elsif current_student %>
+        <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Borrow', borrow_book_path(book) %></td>
         <td><%= link_to 'Return', return_book_path(book) %></td>
-        <td><%= link_to 'History', book_histories_url(book) %></td>
         <td><%= link_to 'Bookmark', bookmark_book_path(book) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<%= link_to 'Back', root_path %>
+<% if current_manager %>
 <%= link_to 'New Book', new_book_path %>
+<% end%>
