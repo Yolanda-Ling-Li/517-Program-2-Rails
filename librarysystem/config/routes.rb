@@ -9,12 +9,14 @@ Rails.application.routes.draw do
   resources :check_outs
   resources :bookmarks
   resources :owe_moneys
+  resources :hold_requests
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
   get 'books/:id/return' => 'books#return', :as => :return_book
   get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_book_history
   get 'check_outs/:data/index' => 'check_outs#index', :as =>:check_check_out
   get 'books/:id/bookmark' => 'books#bookmark', :as => :bookmark_book
   get 'owe_moneys/:data/index' => 'owe_moneys#index', :as =>:check_library_owe_money
+  get 'books/:id/hold_request' => 'books#hold_request', :as => :hold_request_book
 
   resources :books
   resources :libraries

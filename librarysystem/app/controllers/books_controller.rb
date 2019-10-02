@@ -17,11 +17,13 @@ class BooksController < ApplicationController
       create_book_history current_student.id, params[:id], Date.today
       create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       create_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id], Date.today
-      render :borrow, status: :ok, location: @book
+      redirect_to check_outs_url, notice: 'Succeed! The book is in your check out list now.'
+      # render :borrow, status: :ok, location: @book
     elsif this_student
       redirect_to books_url, notice: 'Fail! You have borrowed this book.'
     else
-      redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
+      render :hold_request, status: :ok, location: @book
+      # redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
     end
   end
 
@@ -40,7 +42,9 @@ class BooksController < ApplicationController
     if return_sate && this_student && @book.save!
       destroy_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       update_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id]
-      render :return, status: :ok, location: @book
+      update_hold_request params[:id]
+      redirect_to check_outs_url, notice: 'Succeed! The book is out of your check out list now.'
+      # render :return, status: :ok, location: @book
     elsif !(return_sate)
       redirect_to books_url, notice: 'Fail! Book has been returned.'
     elsif !(this_student)
@@ -98,6 +102,32 @@ class BooksController < ApplicationController
     @owe_money = OweMoney.find_by(:library_id => library_id, :student_id => student_id, :book_id => book_id)
     @owe_money.borrow_date = nil
     @owe_money.save!
+  end
+
+  def hold_request
+    if HoldRequest.find_by(:library_id => Book.find(params[:id]).library_id, :student_id => current_student.id, :book_id => params[:id])
+      redirect_to hold_requests_url, notice: 'Fail! You have already hold request for this book.'
+    else
+      @hold_request = HoldRequest.new
+      @hold_request.library_id = Book.find(params[:id]).library_id
+      @hold_request.student_id = current_student.id
+      @hold_request.book_id = params[:id]
+      @hold_request.save!
+      redirect_to hold_requests_url, notice: 'Succeed! Book has been added in your hold request list.'
+    end
+  end
+
+  def update_hold_request(book_id)
+    if HoldRequest.find_by(:book_id => book_id)
+      @hold_request = HoldRequest.find_by(:book_id => book_id)
+      @book=Book.find(book_id)
+      create_book_history @hold_request.student_id, book_id, Date.today
+      create_check_out @hold_request.library_id, @hold_request.student_id, book_id
+      create_owe_money @hold_request.library_id, @hold_request.student_id, book_id, Date.today
+      @book.borrow_date = Date.today
+      @hold_request.destroy
+      @book.save!
+    end
   end
 
   # GET /books
