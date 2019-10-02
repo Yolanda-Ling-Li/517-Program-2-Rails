@@ -15,9 +15,19 @@
   <tbody>
     <% @check_outs.each do |check_out| %>
       <tr>
-        <td><%= Book.find(check_out.book_id).isbn if check_out.library_id == params[:format].to_i%></td>
-        <td><%= Book.find(check_out.book_id).title if check_out.library_id == params[:format].to_i%></td>
-        <td><%= Student.find(check_out.student_id).email if check_out.library_id == params[:format].to_i%></td>
+        <% if current_admin and check_out.library_id == params[:format].to_i%>
+          <td><%= Book.find(check_out.book_id).isbn%></td>
+          <td><%= Book.find(check_out.book_id).title%></td>
+          <td><%= Student.find(check_out.student_id).email%></td>
+        <% elsif current_librarian and check_out.library_id == params[:format].to_i%>
+          <td><%= Book.find(check_out.book_id).isbn%></td>
+          <td><%= Book.find(check_out.book_id).title%></td>
+          <td><%= Student.find(check_out.student_id).email%></td>
+        <% elsif current_student and current_student.id == check_out.student_id%>
+          <td><%= Book.find(check_out.book_id).isbn%></td>
+          <td><%= Book.find(check_out.book_id).title%></td>
+          <td><%= Student.find(check_out.student_id).email%></td>
+        <% end%>
       </tr>
     <% end %>
   </tbody>

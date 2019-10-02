@@ -4,6 +4,7 @@ class Book < ApplicationRecord
   has_many :check_out, dependent: :destroy
   has_many :bookmark, dependent: :destroy
   has_many :owe_moneys, dependent: :destroy
+  has_many :hold_requests, dependent: :destroy
 
   validates :isbn, :presence => true, uniqueness: true
   validates :title, :presence => true

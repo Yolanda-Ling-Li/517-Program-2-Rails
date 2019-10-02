@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_200012) do
 
+ActiveRecord::Schema.define(version: 2019_10_02_145328) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -70,6 +70,17 @@ ActiveRecord::Schema.define(version: 2019_10_02_200012) do
     t.index ["book_id"], name: "index_check_outs_on_book_id"
     t.index ["library_id"], name: "index_check_outs_on_library_id"
     t.index ["student_id"], name: "index_check_outs_on_student_id"
+  end
+
+  create_table "hold_requests", force: :cascade do |t|
+    t.integer "library_id"
+    t.integer "student_id"
+    t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_hold_requests_on_book_id"
+    t.index ["library_id"], name: "index_hold_requests_on_library_id"
+    t.index ["student_id"], name: "index_hold_requests_on_student_id"
   end
 
   create_table "librarians", force: :cascade do |t|

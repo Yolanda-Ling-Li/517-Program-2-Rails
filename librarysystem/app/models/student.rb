@@ -3,6 +3,7 @@ class Student < ApplicationRecord
   has_many :check_out, dependent: :destroy
   has_many :bookmark, dependent: :destroy
   has_many :owe_moneys, dependent: :destroy
+  has_many :hold_requests, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

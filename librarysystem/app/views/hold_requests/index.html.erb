@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hold Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Book ISBN</th>
+      <th>Book Title</th>
+      <th>Library</th>
+      <th>Student</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hold_requests.each do |hold_request| %>
+      <tr>
+        <% if current_admin%>
+          <td><%= Book.find(hold_request.book_id).isbn %></td>
+          <td><%= Book.find(hold_request.book_id).title %></td>
+          <td><%= Library.find(hold_request.library_id).name %></td>
+          <td><%= Student.find(hold_request.student_id).email %></td>
+        <% elsif current_librarian%>
+          <td><%= Book.find(hold_request.book_id).isbn %></td>
+          <td><%= Book.find(hold_request.book_id).title %></td>
+          <td><%= Library.find(hold_request.library_id).name %></td>
+          <td><%= Student.find(hold_request.student_id).email %></td>
+        <% elsif current_student and current_student.id == hold_request.student_id%>
+          <td><%= Book.find(hold_request.book_id).isbn %></td>
+          <td><%= Book.find(hold_request.book_id).title %></td>
+          <td><%= Library.find(hold_request.library_id).name %></td>
+          <td><%= Student.find(hold_request.student_id).email %></td>
+          <td><%= link_to 'Destroy', hold_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Back', books_path%>
+<br>
+
