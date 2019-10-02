@@ -76,7 +76,7 @@
 <% end %>
 
     <br><br>
-
+<% if current_all %>
     <% if current_admin %>
     <button type="button" class="btn btn-success">
     <%= link_to "Create Library", new_library_path %>
@@ -87,6 +87,9 @@
     <br><br>
     <button type="button" class="btn btn-secondary">
     <%= link_to "View all books", books_url %>
+    </button>
+    <button type="button" class="btn btn-secondary">
+    <%= link_to "View all students", students_url %>
     </button>
     <br><br>
 
@@ -99,6 +102,7 @@
     <%= link_to "List all books", books_url %>
     </button>
     <br><br>
+    <% end %>
     <% end %>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

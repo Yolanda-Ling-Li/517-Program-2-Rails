@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions" }
-  devise_for :students, path: 'students', controllers: { sessions: "students/sessions" }
+  devise_for :students, path: 'students', controllers: { sessions: "students/sessions",registrations:"students/registrations"}
   devise_for :librarians, path: 'librarians', controllers: { sessions: "librarians/sessions" }
   devise_for :users
 
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :bookmarks
   resources :owe_moneys
   resources :hold_requests
+  resources :students
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
   get 'books/:id/return' => 'books#return', :as => :return_book
   get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_book_history
