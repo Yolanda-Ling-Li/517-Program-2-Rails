@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_200012) do
     t.text "summary"
     t.string "special"
     t.integer "library_id"
-    t.date "borrow_date"
+    t.date "borrow_date", default: "2100-01-01"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["library_id"], name: "index_books_on_library_id"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_200012) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
