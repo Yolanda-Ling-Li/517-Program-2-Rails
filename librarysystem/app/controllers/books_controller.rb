@@ -14,8 +14,9 @@ class BooksController < ApplicationController
     end
     @book.borrow_date = Date.today
     if borrow_sate and @book.save!
-      create_book_history current_student.id, params[:id],Date.today
+      create_book_history current_student.id, params[:id], Date.today
       create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
+      create_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id], Date.today
       render :borrow, status: :ok, location: @book
     elsif this_student
       redirect_to books_url, notice: 'Fail! You have borrowed this book.'
@@ -37,7 +38,6 @@ class BooksController < ApplicationController
 
     @book.borrow_date=nil
     if return_sate && this_student && @book.save!
-      destroy_book_history current_student.id, params[:id],Date.today
       destroy_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       render :return, status: :ok, location: @book
     elsif !(return_sate)
@@ -53,11 +53,6 @@ class BooksController < ApplicationController
     @book_history.book_id = book_id
     @book_history.borrow_date = borrow_date
     @book_history.save!
-  end
-
-  def destroy_book_history(student_id, book_id, borrow_date)
-    @book_history = BookHistory.find_by(:student_id => student_id, :book_id => book_id, :borrow_date => borrow_date)
-    @book_history.destroy
   end
 
   def create_check_out(library_id, student_id, book_id)
@@ -86,6 +81,16 @@ class BooksController < ApplicationController
         render :bookmark, status: :ok, location: @book
       end
     end
+  end
+
+  def create_owe_money(library_id, student_id, book_id, borrow_date)
+    @owe_money = OweMoney.new
+    @owe_money.library_id = library_id
+    @owe_money.student_id = student_id
+    @owe_money.book_id = book_id
+    @owe_money.overdue_fine = 0
+    @owe_money.borrow_date = borrow_date
+    @owe_money.save!
   end
 
   # GET /books

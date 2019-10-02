@@ -3,6 +3,7 @@ class Book < ApplicationRecord
   has_many :book_histories, dependent: :destroy
   has_many :check_out, dependent: :destroy
   has_many :bookmark, dependent: :destroy
+  has_many :owe_moneys, dependent: :destroy
 
   validates :isbn, :presence => true, uniqueness: true
   validates :title, :presence => true

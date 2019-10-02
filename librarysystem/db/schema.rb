@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_015524) do
+ActiveRecord::Schema.define(version: 2019_09_30_211327) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -92,6 +92,19 @@ ActiveRecord::Schema.define(version: 2019_09_30_015524) do
     t.integer "overduefine"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "owe_moneys", force: :cascade do |t|
+    t.date "borrow_date"
+    t.integer "overdue_fine"
+    t.integer "library_id"
+    t.integer "student_id"
+    t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_owe_moneys_on_book_id"
+    t.index ["library_id"], name: "index_owe_moneys_on_library_id"
+    t.index ["student_id"], name: "index_owe_moneys_on_student_id"
   end
 
   create_table "roles", force: :cascade do |t|
