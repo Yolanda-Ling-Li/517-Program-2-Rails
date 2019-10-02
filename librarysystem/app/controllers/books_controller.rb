@@ -39,6 +39,7 @@ class BooksController < ApplicationController
     @book.borrow_date=nil
     if return_sate && this_student && @book.save!
       destroy_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
+      update_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id]
       render :return, status: :ok, location: @book
     elsif !(return_sate)
       redirect_to books_url, notice: 'Fail! Book has been returned.'
@@ -93,9 +94,23 @@ class BooksController < ApplicationController
     @owe_money.save!
   end
 
+  def update_owe_money(library_id, student_id, book_id)
+    @owe_money = OweMoney.find_by(:library_id => library_id, :student_id => student_id, :book_id => book_id)
+    @owe_money.borrow_date = nil
+    @owe_money.save!
+  end
+
   # GET /books
   # GET /books.json
   def index
+    OweMoney.find_each do |owemoney|
+      require 'Date'
+      if owemoney.borrow_date != nil
+        owe_library = Library.find(owemoney.library_id)
+        owemoney.overdue_fine = ((owemoney.borrow_date - Date.today).to_i - owe_library.maxborrowdays + 1) * owe_library.overduefine
+        owemoney.save!
+      end
+    end
     @books = if params[:term]
       Book.where(['title LIKE ? OR authors LIKE ? OR published LIKE ? OR subject LIKE ?',"%#{params[:term]}%","%#{params[:term]}%","%#{params[:term]}%","%#{params[:term]}%"])
     else

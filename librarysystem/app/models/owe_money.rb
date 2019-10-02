@@ -6,5 +6,5 @@ class OweMoney < ApplicationRecord
   validates :book_id, :presence => true
   validates :library_id, :presence => true
   validates :overdue_fine, :presence => true
-  validates :borrow_date, :presence => true
+  # validates :borrow_date, :presence => true
 end

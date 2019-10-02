@@ -8,14 +8,6 @@ class ApplicationController < ActionController::Base
 	devise_group :unadmin,contains: [:librarian,:student]
 	devise_group :unlibrarian,contains: [:admin,:student]
 
-	# OweMoney.find_each do |owemoney|
-	# 	require 'Date'
-	# 	if owemoney.borrow_date != nil
-	# 			owe_library = Library.find(owemoney.library_id)
-	# 			owemoney.overdue_fine = (int(owemoney.borrow_date - Date.today) - owe_library.maxborrowdays + 1) * owe_library.overduefine
-	# 	end
-	# end
-
 	protected
 
 	
