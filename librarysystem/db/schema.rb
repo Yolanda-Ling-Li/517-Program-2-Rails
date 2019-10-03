@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2019_10_02_200012) do
 
-ActiveRecord::Schema.define(version: 2019_10_02_145328) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_145328) do
     t.text "summary"
     t.string "special"
     t.integer "library_id"
-    t.date "borrow_date", default: "2100-01-01"
+    t.date "borrow_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["library_id"], name: "index_books_on_library_id"

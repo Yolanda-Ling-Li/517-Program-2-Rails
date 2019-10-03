@@ -1,0 +1,42 @@
+=> Booting Puma
+=> Rails 6.0.0 application starting in development 
+=> Run `rails server --help` for more startup options
+Puma starting in single mode...
+* Version 3.12.1 (ruby 2.6.4-p104), codename: Llamas in Pajamas
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on tcp://0.0.0.0:3000
+Use Ctrl-C to stop
+Started GET "/" for 152.7.255.197 at 2019-10-03 01:07:28 +0000
+Cannot render console from 152.7.255.197! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/home/index.html.erb:1
+  Rendered home/index.html.erb within layouts/application (Duration: 19.7ms | Allocations: 7054)
+Completed 200 OK in 887ms (Views: 878.6ms | ActiveRecord: 0.9ms | Allocations: 1262118)
+
+
+Started DELETE "/admins/sign_out" for 152.7.255.197 at 2019-10-03 01:07:32 +0000
+Cannot render console from 152.7.255.197! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Admins::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"dwoekjmyTSVglQzMFxF2iN+o8uuhZupjkqSzPgLBfRv4HiBp4pNaJx5U2GSBXzuMwoD9c/xK4IIazYXlgcq1uQ=="}
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+Redirected to http://52.87.248.149:3000/
+Completed 302 Found in 6ms (ActiveRecord: 0.2ms | Allocations: 4586)
+
+
+Started GET "/" for 152.7.255.197 at 2019-10-03 01:07:32 +0000
+Cannot render console from 152.7.255.197! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.3ms | Allocations: 224)
+Completed 200 OK in 12ms (Views: 11.3ms | ActiveRecord: 0.0ms | Allocations: 12452)
+
+
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2019-10-03 01:07:36 +0000 ===
+- Goodbye!
+Exiting

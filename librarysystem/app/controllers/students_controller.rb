@@ -28,8 +28,8 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        ExampleMailer.test_email().deliver_now
-        ExampleMailer.sample_email(@student).deliver_now
+        ExampleMailer.test_email().deliver!
+        ExampleMailer.sample_email(@student).deliver!
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
@@ -44,7 +44,6 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        ExampleMailer.sample_email(@student).deliver
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
