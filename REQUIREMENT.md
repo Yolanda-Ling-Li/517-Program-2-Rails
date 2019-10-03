@@ -1,5 +1,3 @@
-## [Server](http://52.87.248.149:3000/) 
-
 ## CSC/ECE 517 - Object Oriented Design and Development
 # Program 2 - Ruby on Rails
 
@@ -36,6 +34,7 @@ A book should have at least following attributes (https://catalog.lib.ncsu.edu/c
   * Language
   * Published
   * Edition
+  * Associated Library
   * Image of the front cover (PNG or JPEG files only)
   * Subject of the book (Ex: Computer Science/Industrial/Life Sciences etc.)
   * Summary
@@ -49,12 +48,12 @@ The system should have a preconfigured admin with at least the following attribu
 * Password
 
 An admin should be capable of performing all operations performed by Librarian or Student, and admin account cannot be deleted.
-Admins should be able to:
+Admin should be able to:
 
 * Log in with an email and password
 * Edit profile
 * Create/Modify Librarian or Student accounts
-* Create Books.
+* Create/Modify/Delete Libraries and Books.
 * View the list of users (students and librarians) and their profile details (except password)
 * View the list of books, along with detailed information.
 * View the list of book hold requests.
@@ -93,30 +92,32 @@ A student should have at least the following attributes:
 * Email (unique for each account), 
 * Name 
 * Password
-* University
-* Maximum number of books (**N**) that can be borrowed at any given time.
+* Educational Level (Undergraduate/Graduate/PhD Student)
+* University 
+* Maximum number of books (**N**) that can be borrowed at any given time (Based on their educational level, For ex: Undergraduate - 2, Masters - 4, PhD - 6).
 
 Anyone can sign up as a student using their email, name and password. After signing up, they can perform the following tasks:
 
 * View the list of all the libraries
+* Edit profile to modify email, name and password only.
 * View all books
-* Check out/Request/Return a book from any library.
-* Renew/Modify/Delete a reservation.
+* Check out/Request/Return a book from any library associated with their University.
+* Delete a reservation request, which has not been approved yet (pending).
 * View/Edit their account attributes (including changing their password).
 * Search through the books
   * Search by title
   * Search by author
   * Search by publication date
-  * Search by category
+  * Search by subject
 * Bookmark a book they are interested in.
 * View their bookmarked books.
-* At any given time, a student can borrow a max of '**N**' number of books.
+* At any given time, a student can borrow a max of '**N**' number of books based on their educational level.
 * View the overdue fines for his/her account. 
 * Receive an email when any of their book request is sucessful.
 
 ### Book Hold Request
 * If the book is available, proceed to check out:
-  * If the book is in Special Cllection list, add this to Librarian's approval list and wait. 
+  * If the book is in Special Collection list, add this to Librarian's approval list and wait. 
   * Otherwise, add the book to student's checked out list
 * If the book is unavailable or the student has checked out **N** books already,
   * Inform the student that the book is unavailable or max limit reached.
@@ -203,7 +204,7 @@ Your submission in Expertiza should consist of the following-
 * Upto you
 
 13. Should the Maximum number of books (N) be configurable?
-* Yes
+* Yes. An example is given in Student description. You are free to design in any way as long as different education level students have different **N**.
 
 14. Are we allowed to use any database software or do we have to use a specific one?
 * You are allowed to use any. Please make sure you are able to deploy it.
@@ -216,6 +217,30 @@ Your submission in Expertiza should consist of the following-
 
 17. Is there an amount of time we are expected to keep the deployment running for after the project has been submitted?
 * Atleast 2 weeks after the final submission
+
+18. We have to deploy our application to OpenShift/AWS ? 
+* No, you could use VCL or Heroku. (Please check "Deployment" section in the program description)
+
+19. What if two students borrow a same book simultaneously?
+* Not allowed. One book can be checked out by only one student.
+
+20. Do we need to create a bucket for book checkout like a cart on online shopping?
+* Upto you
+
+21. Are there different admins for different libraries?
+* 1 Admin for the aplication who can perform all the operations listed under Admin/Librarian/Student.
+
+22. Is there any requirement for the database? Like we have to use Oracle or MySQL. Or we can just choose the one we like?
+* You can use whatever you want. The TA staff will not provide support for anything apart from SQL, PostgreSQL, MySQL databases.
+
+23. Association between books and library is not clear. Is it upto the student to define this? 
+Do we need to excrypt sensitive data?
+* A book is part of a library. Few attributes like max no of days a book can be borrowed or the overdue fines apply to all the books in a library. Encryption - Upto you.
+
+24. What does the University attribute of Student do? Can student edit this attribute? 
+* A student can borrow books from the libraries associated with the University they are enrolled in. No, this field cannot be edited once set.
+
+
 
 
 
