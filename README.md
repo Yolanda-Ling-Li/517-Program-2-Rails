@@ -1,5 +1,3 @@
-## [Server](http://52.87.248.149:3000/) 
-
 ## CSC/ECE 517 - Object Oriented Design and Development
 # Program 2 - Ruby on Rails
 
@@ -16,7 +14,7 @@ Preconfigured admin account and passwrod:
 * Account: 111111@111.com
 * Password: 111111
 
-##Admin
+## Admin
 The system have a preconfigured admin with the following attributes: 
 * Email
 * Password
@@ -72,5 +70,5 @@ Student could be able to:
 * Click Owe Money button under the book list, student could view the overdue fines for his/her account. 
 * Click student logout, student could exit system.   
 
-##Details:
+## Details:
 * When a library is deleted, any list or items relate to this library will be deleted, so does book. In other words, when you delete a library, you are deleting all books and records according to this library, and when you destroy a book, you are destroying every records relate to this book.
