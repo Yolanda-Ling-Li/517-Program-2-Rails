@@ -134,10 +134,13 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     OweMoney.find_each do |owemoney|
-      require 'Date'
+      require 'date'
       if owemoney.borrow_date != nil
         owe_library = Library.find(owemoney.library_id)
-        owemoney.overdue_fine = ((owemoney.borrow_date - Date.today).to_i - owe_library.maxborrowdays + 1) * owe_library.overduefine
+        owemoney.overdue_fine = ((Date.today - owemoney.borrow_date).to_i - owe_library.maxborrowdays + 1) * owe_library.overduefine
+        if owemoney.overdue_fine <0
+        	owemoney.overdue_fine = 0
+        end
         owemoney.save!
       end
     end
