@@ -1,5 +1,3 @@
-## [Server](http://52.87.248.149:3000/) 
-
 ## CSC/ECE 517 - Object Oriented Design and Development
 # Program 2 - Ruby on Rails
 
