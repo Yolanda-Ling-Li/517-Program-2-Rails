@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_10_04_005928) do
-=======
-ActiveRecord::Schema.define(version: 2019_10_02_200012) do
->>>>>>> 456aa3f02a5019b578c2fb83c2db67b4c8f745c0
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -91,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_200012) do
   create_table "librarians", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.integer "library_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -98,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_200012) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.index ["email"], name: "index_librarians_on_email", unique: true
+    t.index ["library_id"], name: "index_librarians_on_library_id"
     t.index ["reset_password_token"], name: "index_librarians_on_reset_password_token", unique: true
   end
 

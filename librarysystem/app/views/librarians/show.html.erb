@@ -11,13 +11,8 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @librarian.password %>
-</p>
-
-<p>
   <strong>Library:</strong>
-  <%= @librarian.library %>
+  <%= Library.find(@librarian.library_id).name %>
 </p>
 
 <%= link_to 'Edit', edit_librarian_path(@librarian) %> |
