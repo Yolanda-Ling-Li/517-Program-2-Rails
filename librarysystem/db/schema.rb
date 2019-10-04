@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2019_10_04_005928) do
 
-ActiveRecord::Schema.define(version: 2019_10_02_145328) do
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_145328) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -55,7 +56,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_145328) do
     t.text "summary"
     t.string "special"
     t.integer "library_id"
-    t.date "borrow_date", default: "2100-01-01"
+    t.date "borrow_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["library_id"], name: "index_books_on_library_id"
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_145328) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
     t.index ["email"], name: "index_librarians_on_email", unique: true
     t.index ["reset_password_token"], name: "index_librarians_on_reset_password_token", unique: true
   end
@@ -152,7 +154,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_145328) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

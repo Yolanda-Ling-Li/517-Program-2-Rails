@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!
+
   # GET /students
   # GET /students.json
   def index
@@ -28,8 +28,6 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        ExampleMailer.test_email().deliver_now
-        ExampleMailer.sample_email(@student).deliver_now
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
@@ -44,7 +42,6 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        ExampleMailer.sample_email(@student).deliver
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
@@ -72,6 +69,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:name, :university, :email, :password, :maxborrowbooks)
+      params.require(:student).permit(:name, :university, :maxborrowbooks, :email, :password)
     end
 end

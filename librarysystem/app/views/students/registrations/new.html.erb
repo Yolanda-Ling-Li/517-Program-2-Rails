@@ -29,6 +29,10 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <%= f.label :level %>
+  <%= select("student", "maxborrowbooks", [[' Level ', ''], ["Undergraduate", "2"], ["Graduate", "4"],["Phd","6"]])%>
+
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

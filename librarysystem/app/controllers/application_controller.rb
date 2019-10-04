@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
 
 	protected
 
-	
- 
 	# def authenticate_admin
 	#   unless current_user.admin?
 	#     flash[:alert] = "You need to be an Admin to do this."

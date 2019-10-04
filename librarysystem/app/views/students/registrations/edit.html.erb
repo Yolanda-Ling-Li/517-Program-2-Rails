@@ -15,6 +15,11 @@
   <%= f.label :university %><br />
   <%= f.text_field :university %>
   </div>
+  
+  <%= f.label :level %>
+  <%= select("student", "maxborrowbooks", [[' Level ', ''], ["Undergraduate", "2"], ["Graduate", "4"],["Phd","6"]])%>
+
+
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

@@ -20,20 +20,19 @@
     <%= form.label :university %>
     <%= form.text_field :university %>
   </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
+  
   <div class="field">
     <%= form.label :password %>
     <%= form.text_field :password %>
   </div>
 
+
+  <%= form.label :level %>
+  <%= select("student", "maxborrowbooks", [[' Level ', ''], ["Undergraduate", "2"], ["Graduate", "4"],["Phd","6"]])%>
+
   <div class="field">
-    <%= form.label :maxborrowbooks %>
-    <%= form.number_field :maxborrowbooks %>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
   </div>
 
   <div class="actions">

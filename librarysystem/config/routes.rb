@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions" }
+  mount RailsAdmin::Engine => '//admin', as: 'rails_admin'
+  devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions",registrations:"admins/registrations" }
   devise_for :students, path: 'students', controllers: { sessions: "students/sessions",registrations:"students/registrations"}
   devise_for :librarians, path: 'librarians', controllers: { sessions: "librarians/sessions" }
   devise_for :users

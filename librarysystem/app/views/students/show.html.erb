@@ -11,14 +11,15 @@
 </p>
 
 <p>
+  <strong>Maxborrowbooks:</strong>
+  <%= @student.maxborrowbooks %>
+</p>
+
+<p>
   <strong>Email:</strong>
   <%= @student.email %>
 </p>
 
-<p>
-  <strong>Maxborrowbooks:</strong>
-  <%= @student.maxborrowbooks %>
-</p>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>
