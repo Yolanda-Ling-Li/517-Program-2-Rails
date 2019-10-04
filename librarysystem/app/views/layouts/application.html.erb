@@ -10,8 +10,8 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <h4 style="font-size:40px">Online Library System</h4>
-
+  <h4 style="font-size:40px">Wolf eLibrary</h4>
+  <br>
   <body style="font-size:15px;background-color:#9c9c9c">
   <button type="button" class="btn btn-dark">
     <%= link_to 'Home Page', root_path %>
@@ -23,9 +23,6 @@
     <%= link_to('Edit Profile', edit_registration_path(:admin)) %></button>
     <% elsif current_unadmin %>
     <% else %>
-    <button type="button" class="btn btn-primary">
-        <%= link_to('Admin Register', new_registration_path(:admin)) %>
-    </button>
     <button type="button" class="btn btn-success">
           <%= link_to('Admin Login', new_session_path(:admin)) %>
       </button>

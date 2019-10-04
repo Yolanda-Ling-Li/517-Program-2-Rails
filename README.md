@@ -1,5 +1,3 @@
-## [Server](http://52.87.248.149:3000/) 
-
 ## CSC/ECE 517 - Object Oriented Design and Development
 # Program 2 - Ruby on Rails
 
@@ -9,213 +7,68 @@
 
 # Library Management 
 
-You are tasked with creating a Library Management System
+Deployed application is built in AWS:
+http://52.87.248.149:3000/
 
-There will be 5 main components in the system:
-* Library
-* Book
-* Admin
-* Librarian
-* Student
-
-## Library
-
-A library should have at least the following attributes:
-* Name
-* University
-* Location (on Campus)
-* Maximum number of days a book can be borrowed
-* Overdue fines for the books in the library
-
-## Book
-
-A book should have at least following attributes (https://catalog.lib.ncsu.edu/catalog/NCSU3343215):
-  * ISBN (unique)
-  * Title
-  * Author(s)
-  * Language
-  * Published
-  * Edition
-  * Image of the front cover (PNG or JPEG files only)
-  * Subject of the book (Ex: Computer Science/Industrial/Life Sciences etc.)
-  * Summary
-  * Is Special Collection Item? (Yes/No) 
+Preconfigured admin account and passwrod:
+* Account: 111111@111.com
+* Password: 111111
 
 ## Admin
-
-The system should have a preconfigured admin with at least the following attributes: 
-* Email (unique for each account)
-* Name 
+The system have a preconfigured admin with the following attributes: 
+* Email
 * Password
 
-An admin should be capable of performing all operations performed by Librarian or Student, and admin account cannot be deleted.
-Admins should be able to:
-
-* Log in with an email and password
-* Edit profile
-* Create/Modify Librarian or Student accounts
-* Create Books.
-* View the list of users (students and librarians) and their profile details (except password)
-* View the list of books, along with detailed information.
-* View the list of book hold requests.
-* View the list of Checked out books.  
-* View the list of students with books overdue (along with overdue fines).
-* View the borrowing history of each book.
-* Delete Student/Book/Librarian from the system
-
+Admin could be able to:
+* In the home page, admin could log in with an email and password.
+* After login, click View all students, admin could view the list of students, view their profile details (except password), modify their accounts and delete student from system.
+* Click view all books, admin could view the list of books.
+* There is a row of buttons under the books list, admin could create books, view the list of students with books overdue (along with overdue fines) and view the list of book hold requests.
+* There is some buttons after each book information, admin could view detailed information of every book, delete book from system and view the borrowing history of each book.
+* Click view all libraries and click show after one library, there is a Library Check Out List button under the library's information, admin could view that library's list of checked out books.
+* Click admin logout, admin could exit system.                                                         
 
 ## Librarian
 
-A librarian should have at least the following attributes: 
+A librarian have following attributes: 
 * Email (unique for each account)
-* Name 
 * Password
-* Library
 
-Anyone can sign up as a librarian using their email, name and password. After signing up, they must be approved by an admin before they can perform the following tasks:
-
-* Log in with email and password.
-* Edit their own profile to choose an existing library. Each librarian can only work for one library.
-* Edit library attributes.
-* Add/Remove books to/from a library.
-* View & Edit book information.
-* View all books.
-* View hold requests for any book in the library he/she works in.
-* For books in the special collection, accept or deny book hold request.
-* View list of all the books that are checked out from their library.
-* View the borrowing history of the books from their library.
-* View the list of students with overdue books from their library along with overdue fine.
+Librarian could be able to:
+* In the home page, librarian could log in with email and password.
+* Click view all libraries and click edit after one library, librarian could edit library attributes by click destroy after library.
+* Click view all books, librarian could add books to a library through button "New Book", and remove books from a library by click "Destroy" after one library.
+* Click edit and history after one book, admin could view & edit book information, and view the borrowing history of the books.
+* There is a row of buttons under the books list, librarian could view the list of students with books overdue (along with overdue fines) and view the list of book hold requests.
+* Click view all libraries and click show after one library, there is a Library Check Out List button under the library's information, librarian could view list of all the books that are checked out.
+* Click librarian logout, librarian could exit system.   
 
 
 ## Students
 
-A student should have at least the following attributes: 
+A student should have the following attributes: 
 * Email (unique for each account), 
 * Name 
 * Password
 * University
 * Maximum number of books (**N**) that can be borrowed at any given time.
 
-Anyone can sign up as a student using their email, name and password. After signing up, they can perform the following tasks:
-
-* View the list of all the libraries
-* View all books
-* Check out/Request/Return a book from any library.
-* Renew/Modify/Delete a reservation.
-* View/Edit their account attributes (including changing their password).
-* Search through the books
+Student could be able to:
+* Click view all libraries, student could view the list of all the libraries
+* Click view all books, student could view all books
+* Click Borrow and Return button after each book, student could Check out/Return a book from any library.
+* If student click Borrow button of a book which has been borrowed, he/she will get tips and choose to request for the book or not.
+* Click Hold Request button under the book list and click destroy after each hold request, student could delete a reservation.
+* Click Edit Profile, student could view/edit their account attributes (including changing their password).
+* student could search through the books in Search Now field.
   * Search by title
   * Search by author
   * Search by publication date
   * Search by category
-* Bookmark a book they are interested in.
-* View their bookmarked books.
-* At any given time, a student can borrow a max of '**N**' number of books.
-* View the overdue fines for his/her account. 
-* Receive an email when any of their book request is sucessful.
+* Click Bookmark button after each book, student could bookmark a book they are interested in, and click twice will cancel bookmark.
+* Click Bookmarked List in the top, student can view their bookmarked books.
+* Click Owe Money button under the book list, student could view the overdue fines for his/her account. 
+* Click student logout, student could exit system.   
 
-### Book Hold Request
-* If the book is available, proceed to check out:
-  * If the book is in Special Cllection list, add this to Librarian's approval list and wait. 
-  * Otherwise, add the book to student's checked out list
-* If the book is unavailable or the student has checked out **N** books already,
-  * Inform the student that the book is unavailable or max limit reached.
-  * Create a book hold request if the student wants to continue requesting.  
-  
-* Number of hold requests for a book should be visible to every user
-
-### Returning a book
-* If there is no hold request for a book, return and increase the available count of the book
-* If there is a pending hold request,
-  * Approve the hold request and add the book to the checked out list of the requested student
-  * Send a mail to the student that the book is checked out.
-
-## Notes
-* There will be only one admin in the system, and this account will be preconfigured. 
-* A librarian can add more than one book.  
-* Each student can bookmark/request multiple books. They can also remove themselves from the bookmark/request list for a book.
-* It’s up to you whether a user should be able to sign up as both an librarian and a student with the same email address or not.  Either way is OK.
-
-## Miscellaneous
-
-### Testing
-
-* Thoroughly test one model and one controller (prefer RSpec testing framework).
-
-### Deployment
-**_Please ensure that your deployment is always accessible for grading_**. You can deploy your app to any of the following: (Try to perform continuous deployment)
-
-* Heroku or any similar PaaS (OpenShift, etc.) with free plans
-* Amazon AWS
-* NCSU VCL
-
-### Bonus (Extra Credit)
-You can do any or all of the below tasks for extra credit (each item below is worth **5 points**).
-* No student/librarian should access any private content associated with other student/librarian/admin's account.
-* All users can use their LinkedIn/Google/Facebook account (implementing any one of them is enough) to log into the system.
-
-## Submission
-Your submission in Expertiza should consist of the following-
-
-* A link to your deployed application
-* A link to your repository
-   * Credentials for the preconfigured admin and any other information that reviewers would find useful should be in the README.md file in this repository
-   * Please include the following details (not limited to!) in README file:
-      * How to test various features (e.g., how to access certain pages, what details to enter in the form etc.)
-      * How your program handles edge-case scenarios(e.g., what will happen if  admin/librarian deletes a book checked out by students? Or if the student who has checkout out a book deletes his/her account.)
-      
-      
-# Frequently Asked Questions (FAQs)
-* [FAQ](https://docs.google.com/document/d/1LRcu-cyPqBmIZdhG677JwEFMQ6J-UFR5piTAMgzkeGI/edit?usp=sharing "FAQ")
-1. Can we use any 3rd party gems?
-* Yes, you can.
-
-2. If the admin account is predefined, how does the admin know how to log in?  Do we just give the admin a predefined login and password?
-* Yes.
-
-3. Would a bare minimum UI consist of a page of links and simple HTML?
-* As long as the functionalities work, it is ok.
-
-4. Is the admin able to edit the existing information for librarian and/or students?
-* Yes. As mentioned above, an admin should be capable of performing all operations performed by librarian or students.
-
-5. Can a librarian switch between libraries?
-* Your call, but at any given moment a librarian can be associated with only one library and has access to the books from the same library.
-
-6. Admin has the right to create librarian and student accounts. When the admin creates an account for a student, the admin creates it with the student’s email address.
-
-7. Is the extra credit included in 70 points for the program, or can we score more than 70?
-* You can score more than 70 if you finish all extra credit tasks.
-
-8. Does the admin set password for them while creating a new librarian/student?
-* Yes
-
-9. Are we required to store the hashes of passwords? Or are we expected to store the passwords themselves?
-* Hashes of the password
-
-10. Do we submit the assignment through github?
-* Yes, you submit the github link in expertiza.
-
-11. Can React be used for frontend? Any resources on how to integrate react with .erb?
-* You can use whatever you want for the frontend. The TA staff will not provide support for anything apart from .erb templates
-
-12. Are we supposed to create different portals for librarian login and student login?
-* Upto you
-
-13. Should the Maximum number of books (N) be configurable?
-* Yes
-
-14. Are we allowed to use any database software or do we have to use a specific one?
-* You are allowed to use any. Please make sure you are able to deploy it.
-
-15. Is it necessary for the the library to be affiliated to a university?
-* Yes
-
-16. Should there be any penalty for returning the book after due?
-* Yes, you calculate the overdue fine
-
-17. Is there an amount of time we are expected to keep the deployment running for after the project has been submitted?
-* Atleast 2 weeks after the final submission
-
-
-
+## Details:
+* When a library is deleted, any list or items relate to this library will be deleted, so does book. In other words, when you delete a library, you are deleting all books and records according to this library, and when you destroy a book, you are destroying every records relate to this book.

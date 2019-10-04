@@ -28,6 +28,11 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
+<<<<<<< HEAD
+=======
+        ExampleMailer.test_email().deliver!
+        ExampleMailer.sample_email(@student).deliver!
+>>>>>>> 456aa3f02a5019b578c2fb83c2db67b4c8f745c0
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
