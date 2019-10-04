@@ -17,7 +17,7 @@
       <tr>
         <td><%= librarian.name %></td>
         <td><%= librarian.email %></td>
-        <td><%= librarian.library %></td>
+        <td><%= librarian.library.name %></td>
         <td><%= link_to 'Show', librarian %></td>
         <td><%= link_to 'Edit', edit_librarian_path(librarian) %></td>
         <td><%= link_to 'Destroy', librarian, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -54,7 +54,7 @@ class LibrariansController < ApplicationController
     # DELETE /students/1
     # DELETE /students/1.json
     def destroy
-      @student.destroy
+      @librarian.destroy
       respond_to do |format|
         format.html { redirect_to librarians_url, notice: 'librarian was successfully destroyed.' }
         format.json { head :no_content }
