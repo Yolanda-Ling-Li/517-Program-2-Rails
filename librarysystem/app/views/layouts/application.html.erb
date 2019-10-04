@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Librarysystem</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <title>Librarysystem</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <h4 style="font-size:40px">Wolf eLibrary</h4>
-  <br>
-  <body style="font-size:15px;background-color:#9c9c9c">
-  <button type="button" class="btn btn-dark">
-    <%= link_to 'Home Page', root_path %>
-    </button>
-    <% if current_admin %>
-    <button type="button" class="btn btn-danger">
+<h4 style="font-size:40px">Wolf eLibrary</h4>
+<br>
+<body style="font-size:15px;background-color:#9c9c9c">
+<button type="button" class="btn btn-dark">
+  <%= link_to 'Home Page', root_path %>
+</button>
+<% if current_admin %>
+  <button type="button" class="btn btn-danger">
     <%= link_to('Admin Logout', destroy_admin_session_path, :method => :delete) %></button>
-    <button type="button" class="btn btn-info">
+  <button type="button" class="btn btn-info">
     <%= link_to('Edit Profile', edit_registration_path(:admin)) %></button>
-    <% elsif current_unadmin %>
-    <% else %>
-    <button type="button" class="btn btn-success">
-          <%= link_to('Admin Login', new_session_path(:admin)) %>
-      </button>
-    <% end %>
+<% elsif current_unadmin %>
+<% else %>
+  <button type="button" class="btn btn-success">
+    <%= link_to('Admin Login', new_session_path(:admin)) %>
+  </button>
+<% end %>
 
-    <% if current_student %>
-    <button type="button" class="btn btn-danger">
+<% if current_student %>
+  <button type="button" class="btn btn-danger">
     <%= link_to('Student Logout', destroy_student_session_path, :method => :delete) %></button>
-    <button type="button" class="btn btn-info">
+  <button type="button" class="btn btn-info">
     <%= link_to('Edit Profile', edit_registration_path(:student)) %></button>
-    <button type="button" class="btn btn-warning">
+  <button type="button" class="btn btn-warning">
     <%= link_to 'Bookmarked List', bookmarks_url %>
-    </button>
-    <% elsif current_manager %>
-    <% else %>
-    <button type="button" class="btn btn-primary">
-      <%= link_to('Student Register', new_registration_path(:student)) %>
-      </button>
-      <button type="button" class="btn btn-success">
-      <%= link_to('Student Login', new_session_path(:student)) %>
-      </button>
-    <% end %>
+  </button>
+<% elsif current_manager %>
+<% else %>
+  <button type="button" class="btn btn-primary">
+    <%= link_to('Student Register', new_registration_path(:student)) %>
+  </button>
+  <button type="button" class="btn btn-success">
+    <%= link_to('Student Login', new_session_path(:student)) %>
+  </button>
+<% end %>
 
-    <% if current_librarian %>
-    <button type="button" class="btn btn-danger">
+<% if current_librarian %>
+  <button type="button" class="btn btn-danger">
     <%= link_to('Librarian Logout', destroy_user_session_path, :method => :delete) %></button>
-    <button type="button" class="btn btn-info">
+  <button type="button" class="btn btn-info">
     <%= link_to('Edit Profile', edit_registration_path(:librarian)) %></button>
-    <% elsif current_unlibrarian%>
-    <% else %>
-    <button type="button" class="btn btn-primary">
-      <%= link_to('Librarian Register', new_registration_path(:librarian)) %>
-    </button>
-    <button type="button" class="btn btn-success">
-      <%= link_to('Librarian Login', new_session_path(:librarian)) %>
-      </button>
-    <% end %>
+<% elsif current_unlibrarian%>
+<% else %>
+  <button type="button" class="btn btn-primary">
+    <%= link_to('Librarian Register', new_registration_path(:librarian)) %>
+  </button>
+  <button type="button" class="btn btn-success">
+    <%= link_to('Librarian Login', new_session_path(:librarian)) %>
+  </button>
+<% end %>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <%= yield %>
@@ -67,46 +67,86 @@
 <br>
 
 <% if current_student %>
-<h4>Search Now !</h4>
-<%= form_tag(books_path,method: :get) do %>
-  <%= text_field_tag :term ,params[:term]%>
-  <%= submit_tag 'Search' %>
-<% end %>
+  <h4>Search Now !</h4>
+  <%= form_tag(books_path,method: :get) do %>
+    <%= text_field_tag :term ,params[:term]%>
+    <%= submit_tag 'Search' %>
+  <% end %>
 <% end %>
 
-    <br><br>
+<br><br>
 <% if current_all %>
-    <% if current_admin %>
+  <% if current_admin %>
     <button type="button" class="btn btn-success">
-    <%= link_to "Create Library", new_library_path %>
+      <%= link_to "Create Library", new_library_path %>
     </button>
     <br><br>
     <button type="button" class="btn btn-secondary">
-    <%= link_to "View all libraries", libraries_url %></button>
+      <%= link_to "View all libraries", libraries_url %></button>
     <br><br>
     <button type="button" class="btn btn-secondary">
-    <%= link_to "View all books", books_url %>
+      <%= link_to "View all books", books_url %>
     </button>
     <br><br>
     <button type="button" class="btn btn-secondary">
-    <%= link_to "Manage students and librarians", rails_admin_url %>
+      <%= link_to "Manage students and librarians", rails_admin_url %>
     </button>
     <br><br>
-
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Check Out List", check_outs_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Owe Money List", owe_moneys_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Hold Request List", hold_requests_url %>
+    </button>
+    <br><br>
+  <% elsif current_librarian %>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "List all libraries", libraries_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "List all books", books_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Check Out List", check_outs_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Owe Money List", owe_moneys_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Hold Request List", hold_requests_url %>
+    </button>
+    <br><br>
     <% else %>
     <button type="button" class="btn btn-secondary">
-    <%= link_to "List all libraries", libraries_url %>
+      <%= link_to "List all libraries", libraries_url %>
     </button>
     <br><br>
     <button type="button" class="btn btn-secondary">
-    <%= link_to "List all books", books_url %>
+      <%= link_to "List all books", books_url %>
     </button>
     <br><br>
-    <% end %>
-    <% end %>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Owe Money List", owe_moneys_url %>
+    </button>
+    <br><br>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Hold Request List", hold_requests_url %>
+    </button>
+    <br><br>
+  <% end %>
+<% end %>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>

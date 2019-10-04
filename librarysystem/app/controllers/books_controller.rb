@@ -13,7 +13,10 @@ class BooksController < ApplicationController
       this_student = true
     end
     @book.borrow_date = Date.today
-    if borrow_sate and @book.save!
+
+    if CheckOut.where(student_id: current_student.id).count >= current_student.maxborrowbooks
+        redirect_to books_url, notice: 'Fail! The number of borrowed books has reached the upper limit.'
+    elsif borrow_sate and @book.save!
       create_book_history current_student.id, params[:id], Date.today
       create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       create_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id], Date.today
@@ -77,13 +80,13 @@ class BooksController < ApplicationController
     if Bookmark.find_by(:student_id => current_student.id, :book_id => params[:id])
       @bookmark = Bookmark.find_by(:student_id => current_student.id, :book_id => params[:id])
       @bookmark.destroy
-      redirect_to books_url, notice: 'Succeed! Book has been unbookmarked by you.'
+      redirect_to bookmarks_url, notice: 'Succeed! Book has been unbookmarked by you.'
     else
       @bookmark = Bookmark.new
       @bookmark.student_id = current_student.id
       @bookmark.book_id = params[:id]
       if @bookmark.save!
-        render :bookmark, status: :ok, location: @book
+        redirect_to bookmarks_url, notice: 'Succeed! The book is in your bookmarked book list now.'
       end
     end
   end
