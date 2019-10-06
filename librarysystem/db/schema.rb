@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_102834) do
   create_table "librarians", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.integer "library_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_102834) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.index ["email"], name: "index_librarians_on_email", unique: true
+    t.index ["library_id"], name: "index_librarians_on_library_id"
     t.index ["reset_password_token"], name: "index_librarians_on_reset_password_token", unique: true
   end
 

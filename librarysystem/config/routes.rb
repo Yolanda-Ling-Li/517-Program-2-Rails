@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '//admin', as: 'rails_admin'
   devise_for :admins, path: 'admins', controllers: { sessions: "admins/sessions",registrations:"admins/registrations" }
   devise_for :students, path: 'students', controllers: { sessions: "students/sessions",registrations:"students/registrations"}
-  devise_for :librarians, path: 'librarians', controllers: { sessions: "librarians/sessions" }
+  devise_for :librarians, path: 'librarians', controllers: { sessions: "librarians/sessions",registrations:"librarians/registrations" }
   devise_for :users
 
   resources :book_histories
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :hold_requests
   resources :students
   resources :book_approvals
+  resources :librarians
+
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
   get 'books/:id/return' => 'books#return', :as => :return_book
   get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_book_history
