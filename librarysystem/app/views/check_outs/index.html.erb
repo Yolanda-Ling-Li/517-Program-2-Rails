@@ -19,7 +19,7 @@
           <td><%= Book.find(check_out.book_id).isbn%></td>
           <td><%= Book.find(check_out.book_id).title%></td>
           <td><%= Student.find(check_out.student_id).email%></td>
-        <% elsif current_librarian%>
+        <% elsif current_librarian and check_out.library_id == current_librarian.id%>
           <td><%= Book.find(check_out.book_id).isbn%></td>
           <td><%= Book.find(check_out.book_id).title%></td>
           <td><%= Student.find(check_out.student_id).email%></td>

@@ -23,7 +23,7 @@
           <td><%= Library.find(owe_money.library_id).name %></td>
           <td><%= Student.find(owe_money.student_id).email %></td>
           <td><%= owe_money.overdue_fine %></td>
-        <% elsif current_librarian and owe_money.overdue_fine != 0%>
+        <% elsif current_librarian and owe_money.overdue_fine != 0 and owe_money.library_id == current_librarian.id%>
           <td><%= Book.find(owe_money.book_id).isbn %></td>
           <td><%= Book.find(owe_money.book_id).title %></td>
           <td><%= Library.find(owe_money.library_id).name %></td>

@@ -16,7 +16,7 @@
   <tbody>
     <% @book_approvals.each do |book_approval| %>
       <tr>
-        <% if current_librarian%>
+        <% if current_librarian and book_approval.library_id == current_librarian.id%>
           <td><%= Book.find(book_approval.book_id).isbn%></td>
           <td><%= Book.find(book_approval.book_id).title%></td>
           <td><%= Library.find(book_approval.book_id).name%></td>

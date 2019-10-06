@@ -38,11 +38,17 @@
         <td><%= book.library.name %></td>
         <td><%= book.count %></td>
         <td><%= HoldRequest.where(book_id: book.id).count %></td>
-        <% if current_manager %>
+        <% if current_admin %>
           <td><%= link_to 'Show', book %></td>
           <td><%= link_to 'Edit', edit_book_path(book) %></td>
           <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <td><%= link_to 'History', book_histories_url(book) %></td>
+        <% elsif current_librarian %>
+          <td><%= link_to 'Show', book %></td>
+          <td><%= link_to 'Edit', edit_book_path(book) %></td>
+          <% if current_librarian.id ==  book.library_id%>
+            <td><%= link_to 'History', book_histories_url(book) %></td>
+          <% end %>
         <% elsif current_student %>
           <td><%= link_to 'Show', book %></td>
           <td><%= link_to 'Borrow', borrow_book_path(book) %></td>
