@@ -4,6 +4,8 @@ class Student < ApplicationRecord
   has_many :bookmark, dependent: :destroy
   has_many :owe_moneys, dependent: :destroy
   has_many :hold_requests, dependent: :destroy
+  has_many :book_approvals, dependent: :destroy
+
   validates :email, :presence =>true, uniqueness: true
   validates :name, :presence => true
   validates :password, :presence => true

@@ -125,7 +125,11 @@
       <%= link_to "View Hold Request List", hold_requests_url %>
     </button>
     <br><br>
-    <% else %>
+    <button type="button" class="btn btn-secondary">
+      <%= link_to "View Special Book Requirement List", book_approvals_url %>
+    </button>
+    <br><br>
+  <% else %>
     <button type="button" class="btn btn-secondary">
       <%= link_to "List all libraries", libraries_url %>
     </button>

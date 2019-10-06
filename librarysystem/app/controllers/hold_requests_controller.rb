@@ -1,33 +1,6 @@
 class HoldRequestsController < ApplicationController
   before_action :set_hold_request, only: [:show, :edit, :update, :destroy]
 
-  def create_book_history(student_id, book_id, borrow_date)
-    @book_history = BookHistory.new
-    @book_history.student_id = student_id
-    @book_history.book_id = book_id
-    @book_history.borrow_date = borrow_date
-    @book_history.save!
-  end
-
-  def create_check_out(library_id, student_id, book_id)
-    @check_out = CheckOut.new
-    @check_out.library_id = library_id
-    @check_out.student_id = student_id
-    @check_out.book_id = book_id
-    @check_out.save!
-  end
-
-  def create_owe_money(library_id, student_id, book_id, borrow_date)
-    @owe_money = OweMoney.new
-    @owe_money.library_id = library_id
-    @owe_money.student_id = student_id
-    @owe_money.book_id = book_id
-    @owe_money.overdue_fine = 0
-    @owe_money.borrow_date = borrow_date
-    @owe_money.save!
-  end
-
-
   # GET /hold_requests
   # GET /hold_requests.json
   def index

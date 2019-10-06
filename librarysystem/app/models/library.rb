@@ -12,4 +12,5 @@ class Library < ApplicationRecord
   has_many :owe_moneys, dependent: :destroy
   has_many :hold_requests, dependent: :destroy
   has_many :librarians, dependent: :destroy
+  has_many :book_approvals, dependent: :destroy
 end

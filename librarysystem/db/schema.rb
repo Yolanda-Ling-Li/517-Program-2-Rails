@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_005928) do
+ActiveRecord::Schema.define(version: 2019_10_04_102834) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 2019_10_04_005928) do
     t.string "name"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "book_approvals", force: :cascade do |t|
+    t.integer "library_id"
+    t.integer "student_id"
+    t.integer "book_id"
+    t.boolean "approval_status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_approvals_on_book_id"
+    t.index ["library_id"], name: "index_book_approvals_on_library_id"
+    t.index ["student_id"], name: "index_book_approvals_on_student_id"
   end
 
   create_table "book_histories", force: :cascade do |t|
@@ -56,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_005928) do
     t.text "summary"
     t.string "special"
     t.integer "library_id"
-    t.date "borrow_date"
+    t.integer "count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["library_id"], name: "index_books_on_library_id"

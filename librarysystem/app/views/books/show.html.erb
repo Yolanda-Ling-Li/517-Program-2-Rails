@@ -56,13 +56,10 @@
 </p>
 
 <p>
-  <strong>Borrow Date:</strong>
-  <% if @book.borrow_date %>
-    <%= @book.borrow_date %>
-  <% else %>
-    <%= 'Un-borrowed' %>
-  <% end %>
+  <strong>Count:</strong>
+  <%= @book.count %>
 </p>
+
 <% if current_manager %>
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <% end %>

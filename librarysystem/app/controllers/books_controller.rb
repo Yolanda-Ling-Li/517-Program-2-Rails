@@ -4,26 +4,28 @@ class BooksController < ApplicationController
   def borrow
     require 'date'
     @book=Book.find(params[:id])
-    borrow_sate = true
-    if @book.borrow_date
-      borrow_sate = false
+    borrow_status = false
+    if @book.count > 0
+      borrow_status = true
     end
     this_student = false
     if CheckOut.find_by(:student_id => current_student.id, :book_id => @book.id)
       this_student = true
     end
-    @book.borrow_date = Date.today
+    @book.count = @book.count - 1
 
     if CheckOut.where(student_id: current_student.id).count >= current_student.maxborrowbooks
         redirect_to books_url, notice: 'Fail! The number of borrowed books has reached the upper limit.'
-    elsif borrow_sate and @book.save!
+    elsif borrow_status and !(this_student) and @book.special != "Yes" and @book.save!
       create_book_history current_student.id, params[:id], Date.today
       create_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       create_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id], Date.today
       redirect_to check_outs_url, notice: 'Succeed! The book is in your check out list now.'
-      # render :borrow, status: :ok, location: @book
     elsif this_student
       redirect_to books_url, notice: 'Fail! You have borrowed this book.'
+    elsif borrow_status and @book.special == "Yes"
+      create_book_approval Book.find(params[:id]).library_id, current_student.id, params[:id]
+      redirect_to books_url, notice: 'Succeed! But this book is special. Please wait to librarian approval to check out.'
     else
       render :hold_request, status: :ok, location: @book
       # redirect_to books_url, notice: 'Fail! Book has been borrowed by others.'
@@ -32,26 +34,20 @@ class BooksController < ApplicationController
 
   def return
     @book=Book.find(params[:id])
-    return_sate = true
-    if !(@book.borrow_date)
-      return_sate = false
-    end
-    this_student = false
+    return_status =  false
     if CheckOut.find_by(:student_id => current_student.id, :book_id => @book.id)
-      this_student = true
+      return_status = true
+      @book.count = @book.count + 1
     end
 
-    @book.borrow_date=nil
-    if return_sate && this_student && @book.save!
+    if return_status && @book.save!
       destroy_check_out Book.find(params[:id]).library_id, current_student.id, params[:id]
       update_owe_money Book.find(params[:id]).library_id, current_student.id, params[:id]
       update_hold_request params[:id]
+      update_book_approval current_student.id
       redirect_to check_outs_url, notice: 'Succeed! The book is out of your check out list now.'
-      # render :return, status: :ok, location: @book
-    elsif !(return_sate)
-      redirect_to books_url, notice: 'Fail! Book has been returned.'
-    elsif !(this_student)
-      redirect_to books_url, notice: 'Fail! Book is borrowed by others.'
+    elsif !(return_status)
+      redirect_to books_url, notice: 'Fail! You did not borrow this book.'
     end
   end
 
@@ -121,15 +117,52 @@ class BooksController < ApplicationController
   end
 
   def update_hold_request(book_id)
-    if HoldRequest.find_by(:book_id => book_id)
-      @hold_request = HoldRequest.find_by(:book_id => book_id)
-      @book=Book.find(book_id)
-      create_book_history @hold_request.student_id, book_id, Date.today
-      create_check_out @hold_request.library_id, @hold_request.student_id, book_id
-      create_owe_money @hold_request.library_id, @hold_request.student_id, book_id, Date.today
-      @book.borrow_date = Date.today
-      @hold_request.destroy
-      @book.save!
+    require 'date'
+    HoldRequest.where(:book_id => book_id).find_each do |hold_request|
+      if hold_request and CheckOut.where(student_id: hold_request.student_id).count < Student.find(hold_request.student_id).maxborrowbooks
+        @book=Book.find(book_id)
+        create_book_history hold_request.student_id, book_id, Date.today
+        create_check_out hold_request.library_id, hold_request.student_id, book_id
+        create_owe_money hold_request.library_id, hold_request.student_id, book_id, Date.today
+        @book.count = @book.count - 1
+        hold_request.destroy
+        @book.save!
+        break
+      end
+    end
+    HoldRequest.where(:student_id => current_student.id).find_each do |holdrequest|
+      if Book.find(holdrequest.book_id).count > 0 and CheckOut.where(student_id: current_student.id).count < current_student.maxborrowbooks
+        create_book_history holdrequest.student_id, holdrequest.book_id, Date.today
+        create_check_out holdrequest.library_id, holdrequest.student_id, holdrequest.book_id
+        create_owe_money holdrequest.library_id, holdrequest.student_id, holdrequest.book_id, Date.today
+        @book = Book.find(holdrequest.book_id)
+        @book.count = @book.count - 1
+        @book.save!
+        holdrequest.destroy
+      end
+    end
+  end
+
+  def create_book_approval(library_id, student_id, book_id)
+    @book_approval = BookApproval.new
+    @book_approval.library_id = library_id
+    @book_approval.student_id = student_id
+    @book_approval.book_id = book_id
+    @book_approval.approval_status = false
+    @book_approval.save!
+  end
+
+  def update_book_approval(student_id)
+    BookApproval.where(:student_id => student_id).find_each do |book_approval|
+      if book_approval and book_approval.approval_status == true and CheckOut.where(student_id: book_approval.student_id).count < Student.find(book_approval.student_id).maxborrowbooks
+        create_book_history book_approval.student_id, book_approval.book_id, Date.today
+        create_check_out book_approval.library_id, book_approval.student_id, book_approval.book_id
+        create_owe_money book_approval.library_id, book_approval.student_id, book_approval.book_id, Date.today
+        book_approval.destroy
+        @book = Book.find(book_approval.book_id)
+        @book.count = @book.count-1
+        @book.save!
+      end
     end
   end
 
@@ -216,6 +249,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:isbn, :title, :authors, :language, :published, :edition, :front_cover, :subject, :summary, :special, :library_id, :borrow_date,:term)
+      params.require(:book).permit(:isbn, :title, :authors, :language, :published, :edition, :front_cover, :subject, :summary, :special, :library_id, :count,:term)
     end
 end

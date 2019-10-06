@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :owe_moneys
   resources :hold_requests
   resources :students
+  resources :book_approvals
   get 'books/:id/borrow' => 'books#borrow', :as => :borrow_book
   get 'books/:id/return' => 'books#return', :as => :return_book
   get 'book_histories/:data/index' => 'book_histories#index', :as =>:check_book_history
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   get 'books/:id/bookmark' => 'books#bookmark', :as => :bookmark_book
   get 'owe_moneys/:data/index' => 'owe_moneys#index', :as =>:check_library_owe_money
   get 'books/:id/hold_request' => 'books#hold_request', :as => :hold_request_book
+  get 'book_approvals/:id/approve' => 'book_approvals#approve', :as => :approve_special
 
   resources :books
   resources :libraries

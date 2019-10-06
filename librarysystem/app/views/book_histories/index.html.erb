@@ -14,8 +14,13 @@
   <tbody>
     <% @book_histories.each do |book_history| %>
       <tr>
-        <td><%= Student.find(book_history.student_id).email if book_history.book_id == params[:format].to_i%></td>
-        <td><%= book_history.borrow_date if book_history.book_id == params[:format].to_i%></td>
+        <% if current_admin and book_history.book_id == params[:format].to_i%>
+          <td><%= Student.find(book_history.student_id).email%></td>
+          <td><%= book_history.borrow_date%></td>
+        <% elsif current_librarian and book_history.book_id == params[:format].to_i%>
+          <td><%= Student.find(book_history.student_id).email%></td>
+          <td><%= book_history.borrow_date%></td>
+        <% end%>
       </tr>
     <% end %>
   </tbody>

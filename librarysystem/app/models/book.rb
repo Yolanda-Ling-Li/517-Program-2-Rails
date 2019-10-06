@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   has_many :bookmark, dependent: :destroy
   has_many :owe_moneys, dependent: :destroy
   has_many :hold_requests, dependent: :destroy
+  has_many :book_approvals, dependent: :destroy
 
   validates :isbn, :presence => true, uniqueness: true
   validates :title, :presence => true
@@ -17,6 +18,6 @@ class Book < ApplicationRecord
   validates :subject, :presence => true
   validates :summary, :presence => true
   validates :special, :presence => true
-  #validates :borrow_date, :presence => true
+  validates :count, :presence => true, numericality: { only_integer: true }
   validates :library_id, :presence => true
 end

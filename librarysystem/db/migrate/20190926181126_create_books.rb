@@ -13,7 +13,7 @@ class CreateBooks < ActiveRecord::Migration[6.0]
       t.text :summary
       t.string :special
       t.references :library
-      t.date :borrow_date, default: nil
+      t.integer :count
       t.timestamps
     end
   end

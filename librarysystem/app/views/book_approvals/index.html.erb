@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Special Book Requirement</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Required Book ISBN</th>
+      <th>Required Book Title</th>
+      <th>Library</th>
+      <th>Student</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @book_approvals.each do |book_approval| %>
+      <tr>
+        <% if current_librarian%>
+          <td><%= Book.find(book_approval.book_id).isbn%></td>
+          <td><%= Book.find(book_approval.book_id).title%></td>
+          <td><%= Library.find(book_approval.book_id).name%></td>
+          <td><%= Student.find(book_approval.student_id).email%></td>
+          <td><%= link_to 'Approve', approve_special_path(book_approval)%></td>
+          <td><%= link_to 'Disapprove', book_approval, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'Back', root_path %>

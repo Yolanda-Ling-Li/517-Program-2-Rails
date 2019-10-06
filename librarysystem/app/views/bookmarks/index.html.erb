@@ -14,8 +14,10 @@
   <tbody>
     <% @bookmarks.each do |bookmark| %>
       <tr>
-        <td><%= Book.find(bookmark.book_id).isbn if bookmark.student_id==current_student.id %></td>
-        <td><%= Book.find(bookmark.book_id).title if bookmark.student_id==current_student.id%></td>
+        <% if current_student and bookmark.student_id==current_student.id%>
+          <td><%= Book.find(bookmark.book_id).isbn%></td>
+          <td><%= Book.find(bookmark.book_id).title%></td>
+        <% end%>
       </tr>
     <% end %>
   </tbody>
