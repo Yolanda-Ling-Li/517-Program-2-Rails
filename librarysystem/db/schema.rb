@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_102834) do
     t.text "summary"
     t.string "special"
     t.integer "library_id"
-    t.integer "count"
+    t.date "borrow_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["library_id"], name: "index_books_on_library_id"
