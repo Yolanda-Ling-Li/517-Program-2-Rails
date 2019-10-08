@@ -90,6 +90,3 @@ Student could be able to:
 * When a library is deleted, any list or items relate to this library will be deleted, so does book. In other words, when you delete a library, you are deleting all books and records according to this library, and when you destroy a book, you are destroying every records relate to this book.
 
 
-
-Anyone can sign up as a student using their email, name and password. After signing up, they can perform the following tasks:
-
