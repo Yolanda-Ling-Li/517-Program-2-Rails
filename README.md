@@ -50,11 +50,6 @@ Librarian could be able to:
 * Click view all libraries and click show after one library, there is a Library Check Out List button under the library's information, librarian could view list of all the books that are checked out.
 * Click librarian logout, librarian could exit system.   
 
-
-
-
-
-
 ## Students
 
 A student should have the following attributes: 
@@ -85,6 +80,8 @@ Student could be able to:
 * Click Owe Money button under the book list, student could view the overdue fines for his/her account. 
 * Click student logout, student could exit system.   
 
+## Bonus
+* We finished the bonus1 that no one can access sepcial page without login.
 
 ## Details:
 * When a library is deleted, any list or items relate to this library will be deleted, so does book. In other words, when you delete a library, you are deleting all books and records according to this library, and when you destroy a book, you are destroying every records relate to this book.
