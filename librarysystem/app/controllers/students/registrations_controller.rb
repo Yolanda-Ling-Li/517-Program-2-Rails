@@ -7,12 +7,31 @@ class Students::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
 
   def new
-    super
+    #super
+    @student = Student.new
+
   end
 
   # POST /resource
   def create
-    super
+    #super
+    @student = Student.new(student_params)
+
+    respond_to do |format|
+      if @student.save
+        # ExampleMailer.test_email().deliver!
+        ExampleMailer.send_email(@student).deliver_now
+        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.json { render :show, status: :created, location: @student }
+      else
+        format.html { render :new }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def student_params
+      params.require(:student).permit(:name, :university, :maxborrowbooks, :email, :password)
   end
 
   # GET /resource/edit
