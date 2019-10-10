@@ -1,6 +1,8 @@
 ## CSC/ECE 517 - Object Oriented Design and Development
 # Program 2 - Ruby on Rails
 
+## Register with real email because there will be emails sent to your mailbox
+
 * Teams may consist of 2-3 members
 * Submission due date : September 30, 2019 (Monday) 11:59 PM
 * Resubmission due date : October 9, 2019 (Wednesday) 11:59 PM
