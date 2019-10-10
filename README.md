@@ -82,8 +82,7 @@ Student could be able to:
 
 ## Bonus
 * We finished the bonus1 that no one can access sepcial page without login.
-
-## Features not finished
+* Emails are sent to accounts when triggered, be sure to register with your real email.
 
 
 ## Details:
