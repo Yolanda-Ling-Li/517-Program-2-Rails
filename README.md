@@ -13,8 +13,14 @@ Deployed application is built in AWS:
 http://52.87.248.149:3000/
 
 Preconfigured admin account and passwrod:
-* Account: 111111@111.com
-* Password: 111111
+
+admin@admin.com
+123456
+
+# Please don't change password of this account! We have a number of admin accounts that have been changed by reviewers and nolonger accessble!
+
+~~* Account: 111111@111.com
+* Password: 111111~~
 
 ## Admin
 The system have a preconfigured admin with the following attributes: 
