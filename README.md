@@ -19,8 +19,8 @@ admin@admin.com
 
 # Please don't change password of this account! We have a number of admin accounts that have been changed by reviewers and nolonger accessble!
 
-~~* Account: 111111@111.com
-* Password: 111111~~
+~~Account: 111111@111.com~~
+~~Password: 111111~~
 
 ## Admin
 The system have a preconfigured admin with the following attributes: 
